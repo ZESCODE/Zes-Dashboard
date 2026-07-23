@@ -1,9 +1,20 @@
 # ZES Dashboard — Zero Entropy System
 
-**Version:** 2.0.0
+**Version:** 2.1.0  
 **57 Static Pages | Full AI Agent Automation | Holographic Memory Hub**
 
 ZES Dashboard is a Next.js (App Router) terminal-native control plane for managing multi-agent AI systems. It provides a unified operational dashboard for agent task dispatch, company orchestration, memory management, webhook handling, cloud sync, and human-in-the-loop pipeline workflows.
+
+## Architecture
+
+```
+User ──→ ZES Dashboard (:5050)
+            │
+            ├──→ BitRouter (:4356)    → OpenAI / Google Gemini
+            ├──→ AI-Proxy (:20129)    → Groq / OpenRouter / Mistral / NVIDIA
+            ├──→ Tor (:9050)          → IP rotation layer
+            └──→ 9Router (:20128)     → Legacy (deprecated)
+```
 
 ---
 
