@@ -245,7 +245,8 @@ interface Experiment {
   status: "running" | "stopped" | "error";
   progress: number;
   lastRun: string;
-  category: string;
+  category: "ml" | "network" | "system";
+  color: "green" | "red" | "orange" | "blue";
 }
 
 const demoExperiments: Experiment[] = [
@@ -257,6 +258,7 @@ const demoExperiments: Experiment[] = [
     progress: 78,
     lastRun: "Now",
     category: "ml",
+    color: "green",
   },
   {
     id: "exp-2",
@@ -266,6 +268,7 @@ const demoExperiments: Experiment[] = [
     progress: 45,
     lastRun: "Now",
     category: "network",
+    color: "blue",
   },
   {
     id: "exp-3",
@@ -275,6 +278,7 @@ const demoExperiments: Experiment[] = [
     progress: 100,
     lastRun: "2h ago",
     category: "system",
+    color: "orange",
   },
   {
     id: "exp-4",
@@ -284,6 +288,7 @@ const demoExperiments: Experiment[] = [
     progress: 62,
     lastRun: "5h ago",
     category: "ml",
+    color: "orange",
   },
   {
     id: "exp-5",
@@ -293,28 +298,81 @@ const demoExperiments: Experiment[] = [
     progress: 89,
     lastRun: "Failed",
     category: "system",
+    color: "red",
   },
 ];
 
-const categoryColors: Record<string, string> = {
-  ml: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  network: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-  system: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+/* Per-color token maps for card content styling */
+const frostTokens: Record<
+  Experiment["color"],
+  {
+    cardClass: string;
+    accent: string;
+    accentMuted: string;
+    progressBar: string;
+    badgeBg: string;
+    badgeText: string;
+    badgeBorder: string;
+    iconBg: string;
+    btnClass: string;
+  }
+> = {
+  green: {
+    cardClass: "glass-frost-green",
+    accent: "text-emerald-400",
+    accentMuted: "text-emerald-400/70",
+    progressBar: "bg-emerald-500",
+    badgeBg: "bg-emerald-500/15",
+    badgeText: "text-emerald-300",
+    badgeBorder: "border-emerald-500/30",
+    iconBg: "bg-emerald-500/15",
+    btnClass:
+      "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20",
+  },
+  red: {
+    cardClass: "glass-frost-red",
+    accent: "text-red-400",
+    accentMuted: "text-red-400/70",
+    progressBar: "bg-red-500",
+    badgeBg: "bg-red-500/15",
+    badgeText: "text-red-300",
+    badgeBorder: "border-red-500/30",
+    iconBg: "bg-red-500/15",
+    btnClass:
+      "border border-red-500/30 bg-red-500/10 text-red-300 cursor-not-allowed opacity-60",
+  },
+  orange: {
+    cardClass: "glass-frost-orange",
+    accent: "text-orange-400",
+    accentMuted: "text-orange-400/70",
+    progressBar: "bg-orange-500",
+    badgeBg: "bg-orange-500/15",
+    badgeText: "text-orange-300",
+    badgeBorder: "border-orange-500/30",
+    iconBg: "bg-orange-500/15",
+    btnClass:
+      "border border-orange-500/30 bg-orange-500/10 text-orange-300 hover:bg-orange-500/20",
+  },
+  blue: {
+    cardClass: "glass-frost-blue",
+    accent: "text-blue-400",
+    accentMuted: "text-blue-400/70",
+    progressBar: "bg-blue-500",
+    badgeBg: "bg-blue-500/15",
+    badgeText: "text-blue-300",
+    badgeBorder: "border-blue-500/30",
+    iconBg: "bg-blue-500/15",
+    btnClass:
+      "border border-blue-500/30 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20",
+  },
 };
 
 function ExperimentCard({ exp }: { exp: Experiment }) {
+  const t = frostTokens[exp.color];
   return (
-    <div
-      className={cn(
-        "rounded-lg border p-4 transition-all duration-300 hover:border-primary/30",
-        exp.status === "running"
-          ? "border-success/30 bg-success/5"
-          : exp.status === "error"
-          ? "border-destructive/30 bg-destructive/5"
-          : "border-border/40 bg-accent/10"
-      )}
-    >
-      <div className="flex items-center justify-between mb-2">
+    <div className={cn("rounded-xl p-4", t.cardClass)}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Bullet
             variant={
@@ -325,64 +383,61 @@ function ExperimentCard({ exp }: { exp: Experiment }) {
                 : "default"
             }
           />
-          <span className="font-display text-sm">{exp.name}</span>
+          <span className="font-display text-sm tracking-wide">{exp.name}</span>
         </div>
-        <Badge
-          variant="outline"
-          className={cn("text-[9px] uppercase", categoryColors[exp.category])}
+        <span
+          className={cn(
+            "text-[9px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full border",
+            t.badgeBg,
+            t.badgeText,
+            t.badgeBorder
+          )}
         >
           {exp.category}
-        </Badge>
+        </span>
       </div>
-      <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+
+      {/* Description */}
+      <p className="text-xs text-foreground/55 mb-4 leading-relaxed">
         {exp.description}
       </p>
-      <div className="space-y-1 mb-3">
+
+      {/* Progress */}
+      <div className="space-y-1.5 mb-4">
         <div className="flex items-center justify-between text-[10px]">
-          <span className="text-muted-foreground">Progress</span>
-          <span
-            className={cn(
-              "font-mono font-bold",
-              exp.status === "running"
-                ? "text-success"
-                : exp.status === "error"
-                ? "text-destructive"
-                : "text-muted-foreground"
-            )}
-          >
+          <span className="text-foreground/40 uppercase tracking-wider">
+            Progress
+          </span>
+          <span className={cn("font-mono font-bold tabular-nums", t.accent)}>
             {exp.progress}%
           </span>
         </div>
-        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+        <div className="h-1.5 rounded-full overflow-hidden bg-white/5">
           <div
-            className={cn(
-              "h-full rounded-full transition-all duration-700",
-              exp.status === "running"
-                ? "bg-success"
-                : exp.status === "error"
-                ? "bg-destructive"
-                : "bg-muted-foreground/30"
-            )}
+            className={cn("h-full rounded-full transition-all duration-700", t.progressBar)}
             style={{ width: `${exp.progress}%` }}
           />
         </div>
       </div>
+
+      {/* Footer */}
       <div className="flex items-center justify-between">
-        <span className="text-[10px] text-muted-foreground font-mono">
-          Last: {exp.lastRun}
+        <span className={cn("text-[10px] font-mono", t.accentMuted)}>
+          {exp.lastRun}
         </span>
-        <Button
-          variant={exp.status === "running" ? "outline" : "default"}
-          size="sm"
-          className="h-6 text-[10px] px-2"
+        <button
+          className={cn(
+            "h-6 px-3 rounded-md text-[10px] font-semibold uppercase tracking-wider transition-all duration-200",
+            t.btnClass
+          )}
           disabled={exp.status === "error"}
         >
           {exp.status === "running"
-            ? "STOP"
+            ? "Stop"
             : exp.status === "error"
-            ? "FAILED"
-            : "START"}
-        </Button>
+            ? "Failed"
+            : "Start"}
+        </button>
       </div>
     </div>
   );
@@ -940,7 +995,7 @@ export default function ShowcasePage() {
       {/* ── 8. EXPERIMENT CARDS ── */}
       <Section
         title="Experiment Cards"
-        description="Status-colored cards with progress bars and category badges — used in /laboratory."
+        description="Frost glassmorphic color cards — green (running), blue (network), orange (stopped), red (error). Used in /laboratory."
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {demoExperiments.map((exp) => (
