@@ -49,8 +49,8 @@ export default function Widget({ widgetData }: WidgetProps) {
       <TVNoise opacity={0.3} intensity={0.2} speed={40} />
       <CardContent className="bg-accent/30 flex-1 flex flex-col justify-between text-sm font-medium uppercase relative z-20">
         <div className="flex justify-between items-center">
-          <span className="opacity-50">{dateInfo.dayOfWeek}</span>
-          <span>{dateInfo.restOfDate}</span>
+          <span className="opacity-50" suppressHydrationWarning>{dateInfo.dayOfWeek}</span>
+          <span suppressHydrationWarning>{dateInfo.restOfDate}</span>
         </div>
         <div className="text-center">
           <div className="text-5xl font-display" suppressHydrationWarning>
