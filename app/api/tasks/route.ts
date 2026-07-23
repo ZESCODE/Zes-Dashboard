@@ -34,10 +34,6 @@ export async function GET(request: NextRequest) {
     if (status) filtered = filtered.filter((t: any) => t.status === status);
     if (agent) filtered = filtered.filter((t: any) => t.assigned_to === agent);
 
-    // Get stats
-    const statsArgs = [MGR_PATH, "stats"];
-    const { stdout: statsOut } = await execAsync("python3", statsArgs);
-
     return NextResponse.json({
       tasks: filtered,
       stats: {
