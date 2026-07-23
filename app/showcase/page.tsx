@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import DashboardPageLayout from "@/components/dashboard/layout";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Bullet } from "@/components/ui/bullet";
 import { cn } from "@/lib/utils";
@@ -126,52 +125,91 @@ function GlassCard({
   );
 }
 
-/* ─────────── Stat cards (glass) ─────────── */
+/* ─────────── Stat cards (frost glass) ─────────── */
+
+type FrostColor = "green" | "blue" | "orange" | "red";
+
+const statFrost: Record<
+  FrostColor,
+  { card: string; iconBg: string; iconText: string; accent: string; badgeBg: string; badgeText: string }
+> = {
+  green: {
+    card: "glass-frost-green",
+    iconBg: "bg-emerald-500/15",
+    iconText: "text-emerald-300",
+    accent: "text-emerald-300",
+    badgeBg: "bg-emerald-500/15",
+    badgeText: "text-emerald-300",
+  },
+  blue: {
+    card: "glass-frost-blue",
+    iconBg: "bg-blue-500/15",
+    iconText: "text-blue-300",
+    accent: "text-blue-300",
+    badgeBg: "bg-blue-500/15",
+    badgeText: "text-blue-300",
+  },
+  orange: {
+    card: "glass-frost-orange",
+    iconBg: "bg-orange-500/15",
+    iconText: "text-orange-300",
+    accent: "text-orange-300",
+    badgeBg: "bg-orange-500/15",
+    badgeText: "text-orange-300",
+  },
+  red: {
+    card: "glass-frost-red",
+    iconBg: "bg-red-500/15",
+    iconText: "text-red-300",
+    accent: "text-red-300",
+    badgeBg: "bg-red-500/15",
+    badgeText: "text-red-300",
+  },
+};
 
 function GlassStatCard({
   label,
   value,
   change,
   icon: Icon,
-  glow,
+  frost,
   trend = "up",
 }: {
   label: string;
   value: string;
   change: string;
   icon: React.ElementType;
-  glow: string;
+  frost: FrostColor;
   trend?: "up" | "down";
 }) {
+  const t = statFrost[frost];
   return (
-    <GlassCard glow={glow}>
+    <div className={cn("rounded-xl p-5 transition-all duration-300", t.card)}>
       <div className="flex items-start justify-between mb-3">
-        <div className="size-9 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-sm">
-          <Icon className="size-4 text-foreground/70" />
+        <div className={cn("size-9 rounded-lg flex items-center justify-center backdrop-blur-sm", t.iconBg)}>
+          <Icon className={cn("size-4", t.iconText)} />
         </div>
-        <Badge
-          variant="outline"
+        <span
           className={cn(
-            "text-[10px] border-0",
-            trend === "up"
-              ? "text-emerald-400 bg-emerald-500/10"
-              : "text-rose-400 bg-rose-500/10"
+            "text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-0.5",
+            t.badgeBg,
+            t.badgeText
           )}
         >
           <ArrowRight
             className={cn(
-              "size-3 mr-0.5",
+              "size-3",
               trend === "up" ? "rotate-[-90deg]" : "rotate-90"
             )}
           />
           {change}
-        </Badge>
+        </span>
       </div>
       <div className="text-[10px] uppercase tracking-widest text-foreground/50 font-semibold mb-0.5">
         {label}
       </div>
-      <div className="text-2xl font-display font-bold">{value}</div>
-    </GlassCard>
+      <div className={cn("text-2xl font-display font-bold", t.accent)}>{value}</div>
+    </div>
   );
 }
 
@@ -181,60 +219,53 @@ function GlassFeatureCard({
   icon: Icon,
   title,
   description,
-  glow,
+  frost,
   tags,
 }: {
   icon: React.ElementType;
   title: string;
   description: string;
-  glow: string;
+  frost: FrostColor;
   tags?: string[];
 }) {
+  const t = statFrost[frost];
   return (
-    <GlassCard glow={glow}>
+    <div className={cn("rounded-xl p-5 transition-all duration-300", t.card)}>
       <div className="flex items-center gap-3 mb-3">
-        <div className="size-10 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-sm">
-          <Icon className="size-5 text-foreground/70" />
+        <div className={cn("size-10 rounded-lg flex items-center justify-center backdrop-blur-sm", t.iconBg)}>
+          <Icon className={cn("size-5", t.iconText)} />
         </div>
         <div>
-          <div className="text-sm font-semibold">{title}</div>
-          <div className="text-[10px] text-foreground/50 uppercase tracking-wider">
+          <div className={cn("text-sm font-semibold", t.accent)}>{title}</div>
+          <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
             Feature
           </div>
         </div>
       </div>
-      <p className="text-xs text-foreground/60 leading-relaxed mb-3">
+      <p className="text-xs text-foreground/55 leading-relaxed mb-3">
         {description}
       </p>
       {tags && (
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <span key={tag} className="glass-badge text-[9px] px-2 py-0.5">
+            <span
+              key={tag}
+              className={cn(
+                "text-[9px] px-2 py-0.5 rounded-full border font-medium",
+                t.badgeBg,
+                t.badgeText,
+                "border-current/20"
+              )}
+            >
               {tag}
             </span>
           ))}
         </div>
       )}
-    </GlassCard>
-  );
-}
-
-/* ─────────── Color Swatch ─────────── */
-
-function ColorSwatch({
-  label,
-  colorClass,
-}: {
-  label: string;
-  colorClass: string;
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className={cn("size-8 rounded-lg border border-white/10", colorClass)} />
-      <span className="text-xs font-mono text-foreground/60">{label}</span>
     </div>
   );
 }
+
 
 /* ─────────── Experiment card (from /laboratory) ─────────── */
 
@@ -613,7 +644,7 @@ export default function ShowcasePage() {
             value="1,234,567"
             change="+12.5%"
             icon={Activity}
-            glow="indigo"
+            frost="green"
             trend="up"
           />
           <GlassStatCard
@@ -621,7 +652,7 @@ export default function ShowcasePage() {
             value="892"
             change="+5.2%"
             icon={User}
-            glow="emerald"
+            frost="blue"
             trend="up"
           />
           <GlassStatCard
@@ -629,7 +660,7 @@ export default function ShowcasePage() {
             value="42ms"
             change="+2.1%"
             icon={Cpu}
-            glow="amber"
+            frost="orange"
             trend="down"
           />
           <GlassStatCard
@@ -637,7 +668,7 @@ export default function ShowcasePage() {
             value="7"
             change="-18.3%"
             icon={AlertTriangle}
-            glow="rose"
+            frost="red"
             trend="up"
           />
         </Grid>
@@ -691,42 +722,42 @@ export default function ShowcasePage() {
             icon={Zap}
             title="Performance"
             description="Real-time metrics with sub-millisecond latency. Optimized for high-throughput data processing pipelines."
-            glow="indigo"
+            frost="green"
             tags={["low-latency", "high-throughput", "real-time"]}
           />
           <GlassFeatureCard
             icon={Shield}
             title="Security"
             description="Zero-trust architecture with end-to-end encryption. SOC 2 compliant with automated threat detection."
-            glow="emerald"
+            frost="blue"
             tags={["zero-trust", "encrypted", "compliant"]}
           />
           <GlassFeatureCard
             icon={Heart}
             title="Reliability"
             description="99.99% uptime SLA with automatic failover. Distributed across multiple availability zones."
-            glow="rose"
+            frost="red"
             tags={["high-availability", "fault-tolerant", "backup"]}
           />
           <GlassFeatureCard
             icon={Cloud}
             title="Cloud Native"
             description="Fully containerized deployment on Kubernetes. Auto-scaling based on demand with zero downtime."
-            glow="cyan"
+            frost="orange"
             tags={["kubernetes", "docker", "serverless"]}
           />
           <GlassFeatureCard
             icon={Database}
             title="Data Layer"
             description="Distributed database with multi-region replication. ACID compliant with eventual consistency options."
-            glow="violet"
+            frost="green"
             tags={["postgresql", "redis", "cassandra"]}
           />
           <GlassFeatureCard
             icon={Share2}
             title="API Gateway"
             description="Unified API gateway with rate limiting, auth, and monitoring. GraphQL and REST endpoints supported."
-            glow="amber"
+            frost="blue"
             tags={["graphql", "rest", "websocket"]}
           />
         </Grid>
@@ -893,100 +924,118 @@ export default function ShowcasePage() {
       {/* ── 7. CARD VARIANTS ── */}
       <Section
         title="Card Variants"
-        description="glass-card with various glow accents demonstrating different content patterns."
+        description="Frost glass cards — green, blue, orange, red — demonstrating different content patterns."
       >
         <Grid cols={2}>
-          <GlassCard glow="indigo">
+          {/* Green — progress */}
+          <div className="glass-frost-green rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
-              <div className="size-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 flex items-center justify-center">
-                <Database className="size-6 text-indigo-400" />
+              <div className="size-12 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                <Database className="size-6 text-emerald-400" />
               </div>
               <div>
-                <div className="font-display text-base">Glass Default</div>
-                <div className="text-[10px] text-foreground/50">
+                <div className="font-display text-base text-emerald-300">Frost Green</div>
+                <div className="text-[10px] text-foreground/40">
                   backdrop-blur(20px)
                 </div>
               </div>
             </div>
             <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-3">
-              <div className="w-3/4 h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full" />
+              <div className="w-3/4 h-full bg-emerald-500 rounded-full" />
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-foreground/50">Progress</span>
-              <span className="font-mono text-indigo-300">75%</span>
+              <span className="text-foreground/40">Progress</span>
+              <span className="font-mono text-emerald-300 font-bold">75%</span>
             </div>
-          </GlassCard>
+          </div>
 
-          <GlassCard glow="emerald">
+          {/* Blue — status */}
+          <div className="glass-frost-blue rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
-              <div className="size-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
-                <Activity className="size-6 text-emerald-400" />
+              <div className="size-12 rounded-xl bg-blue-500/15 flex items-center justify-center">
+                <Activity className="size-6 text-blue-400" />
               </div>
               <div>
-                <div className="font-display text-base">Glass Strong</div>
-                <div className="text-[10px] text-foreground/50">
-                  backdrop-blur(16px)
+                <div className="font-display text-base text-blue-300">Frost Blue</div>
+                <div className="text-[10px] text-foreground/40">
+                  backdrop-blur(20px)
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 mb-1">
-              <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs text-emerald-300">System operational</span>
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="size-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-xs text-blue-300">System operational</span>
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-foreground/50">
+            <div className="flex items-center gap-2 text-[10px] text-foreground/40">
               <span>Uptime: 99.99%</span>
               <span>·</span>
               <span>Latency: 12ms</span>
             </div>
-          </GlassCard>
+          </div>
 
-          <GlassCard glow="rose">
+          {/* Orange — alert */}
+          <div className="glass-frost-orange rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
-              <div className="size-12 rounded-xl bg-gradient-to-br from-rose-500/20 to-orange-500/20 flex items-center justify-center">
-                <Bell className="size-6 text-rose-400" />
+              <div className="size-12 rounded-xl bg-orange-500/15 flex items-center justify-center">
+                <Bell className="size-6 text-orange-400" />
               </div>
               <div>
-                <div className="font-display text-base">Glass Alert</div>
-                <div className="text-[10px] text-foreground/50">
+                <div className="font-display text-base text-orange-300">Frost Orange</div>
+                <div className="text-[10px] text-foreground/40">
                   Warning variant
                 </div>
               </div>
             </div>
-            <div className="flex items-start gap-2 p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
-              <AlertTriangle className="size-3 text-rose-400 shrink-0 mt-0.5" />
-              <p className="text-[10px] text-rose-200/80">
-                Database connection pool is at 85% capacity. Consider scaling
-                up.
+            <div className="flex items-start gap-2 p-2.5 rounded-lg bg-orange-500/10 border border-orange-500/25">
+              <AlertTriangle className="size-3 text-orange-400 shrink-0 mt-0.5" />
+              <p className="text-[10px] text-orange-200/80">
+                CPU threshold exceeded on node-03 at 87% capacity. Consider scaling up.
               </p>
             </div>
-          </GlassCard>
+          </div>
 
-          <GlassCard glow="amber">
+          {/* Red — config */}
+          <div className="glass-frost-red rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-3 mb-4">
-              <div className="size-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/20 flex items-center justify-center">
-                <Settings className="size-6 text-amber-400" />
+              <div className="size-12 rounded-xl bg-red-500/15 flex items-center justify-center">
+                <Settings className="size-6 text-red-400" />
               </div>
               <div>
-                <div className="font-display text-base">Glass Config</div>
-                <div className="text-[10px] text-foreground/50">
-                  Settings panel
+                <div className="font-display text-base text-red-300">Frost Red</div>
+                <div className="text-[10px] text-foreground/40">
+                  Error variant
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              {["Auto Deploy", "Notifications", "Backup"].map((item) => (
+              {[
+                { label: "Auto Deploy", ok: false },
+                { label: "Notifications", ok: true },
+                { label: "Backup", ok: false },
+              ].map((item) => (
                 <div
-                  key={item}
+                  key={item.label}
                   className="flex items-center justify-between py-1.5"
                 >
-                  <span className="text-xs text-foreground/70">{item}</span>
-                  <div className="size-4 rounded-sm bg-emerald-400/30 border border-emerald-400/50 flex items-center justify-center">
-                    <Check className="size-3 text-emerald-400" />
+                  <span className="text-xs text-foreground/60">{item.label}</span>
+                  <div
+                    className={cn(
+                      "size-4 rounded-sm border flex items-center justify-center",
+                      item.ok
+                        ? "bg-emerald-400/25 border-emerald-400/40"
+                        : "bg-red-400/20 border-red-400/35"
+                    )}
+                  >
+                    {item.ok ? (
+                      <Check className="size-3 text-emerald-400" />
+                    ) : (
+                      <span className="size-1.5 rounded-full bg-red-400 block" />
+                    )}
                   </div>
                 </div>
               ))}
             </div>
-          </GlassCard>
+          </div>
         </Grid>
       </Section>
 
@@ -1009,60 +1058,69 @@ export default function ShowcasePage() {
       {/* ── 9. SYSTEM MONITOR PANELS ── */}
       <Section
         title="System Monitor Panels"
-        description="Compact monitoring panels with Bullet indicators and progress bars."
+        description="Frost glassmorphic monitor panels — green, blue, orange, red — with Bullet indicators and progress bars."
       >
-        <GlassCard>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="glass rounded-xl p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                  CPU
-                </span>
-                <Bullet variant="success" />
-              </div>
-              <div className="text-2xl font-display font-bold mb-1">2.1</div>
-              <div className="text-[10px] text-muted-foreground font-mono">
-                load average
-              </div>
+        <Grid cols={4}>
+          {/* Green — CPU */}
+          <div className="glass-frost-green rounded-xl p-4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] uppercase tracking-wider text-emerald-300/70 font-semibold">
+                CPU
+              </span>
+              <Bullet variant="success" />
             </div>
-            <div className="glass rounded-xl p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                  MEMORY
-                </span>
-                <Bullet variant="success" />
-              </div>
-              <div className="text-2xl font-display font-bold mb-1">4.2 GB</div>
-              <div className="text-[10px] text-muted-foreground font-mono">
-                of 8.0 GB total
-              </div>
-              <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-success transition-all duration-500"
-                  style={{ width: "52%" }}
-                />
-              </div>
-            </div>
-            <div className="glass rounded-xl p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                  DISK
-                </span>
-                <Bullet variant="warning" />
-              </div>
-              <div className="text-2xl font-display font-bold mb-1">187 GB</div>
-              <div className="text-[10px] text-muted-foreground font-mono">
-                of 256 GB total
-              </div>
-              <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-warning transition-all duration-500"
-                  style={{ width: "73%" }}
-                />
-              </div>
+            <div className="text-2xl font-display font-bold text-emerald-300 mb-0.5">2.1</div>
+            <div className="text-[10px] text-foreground/40 font-mono mb-3">load average</div>
+            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-emerald-500 transition-all duration-500" style={{ width: "26%" }} />
             </div>
           </div>
-        </GlassCard>
+
+          {/* Blue — Memory */}
+          <div className="glass-frost-blue rounded-xl p-4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] uppercase tracking-wider text-blue-300/70 font-semibold">
+                Memory
+              </span>
+              <Bullet variant="success" />
+            </div>
+            <div className="text-2xl font-display font-bold text-blue-300 mb-0.5">4.2 GB</div>
+            <div className="text-[10px] text-foreground/40 font-mono mb-3">of 8.0 GB total</div>
+            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-blue-500 transition-all duration-500" style={{ width: "52%" }} />
+            </div>
+          </div>
+
+          {/* Orange — Disk */}
+          <div className="glass-frost-orange rounded-xl p-4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] uppercase tracking-wider text-orange-300/70 font-semibold">
+                Disk
+              </span>
+              <Bullet variant="warning" />
+            </div>
+            <div className="text-2xl font-display font-bold text-orange-300 mb-0.5">187 GB</div>
+            <div className="text-[10px] text-foreground/40 font-mono mb-3">of 256 GB total</div>
+            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-orange-500 transition-all duration-500" style={{ width: "73%" }} />
+            </div>
+          </div>
+
+          {/* Red — Network */}
+          <div className="glass-frost-red rounded-xl p-4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] uppercase tracking-wider text-red-300/70 font-semibold">
+                Network
+              </span>
+              <Bullet variant="destructive" />
+            </div>
+            <div className="text-2xl font-display font-bold text-red-300 mb-0.5">98%</div>
+            <div className="text-[10px] text-foreground/40 font-mono mb-3">bandwidth used</div>
+            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-red-500 transition-all duration-500" style={{ width: "98%" }} />
+            </div>
+          </div>
+        </Grid>
       </Section>
 
       <hr className="glass-divider my-8" />
@@ -1123,21 +1181,43 @@ export default function ShowcasePage() {
 
       {/* ── 15. COLOR PALETTE ── */}
       <Section
-        title="Glass Color Palette"
-        description="All glass accent colors available as Tailwind utilities."
+        title="Frost Glass Palette"
+        description="Four frost glassmorphic color tokens — each a standalone showcase tile."
       >
-        <GlassCard>
-          <Grid cols={4}>
-            <ColorSwatch label="bg-indigo-500/20" colorClass="bg-indigo-500/20" />
-            <ColorSwatch label="bg-emerald-500/20" colorClass="bg-emerald-500/20" />
-            <ColorSwatch label="bg-rose-500/20" colorClass="bg-rose-500/20" />
-            <ColorSwatch label="bg-amber-500/20" colorClass="bg-amber-500/20" />
-            <ColorSwatch label="bg-cyan-500/20" colorClass="bg-cyan-500/20" />
-            <ColorSwatch label="bg-violet-500/20" colorClass="bg-violet-500/20" />
-            <ColorSwatch label="bg-white/10" colorClass="bg-white/10" />
-            <ColorSwatch label="bg-white/20" colorClass="bg-white/20" />
-          </Grid>
-        </GlassCard>
+        <Grid cols={4}>
+          <div className="glass-frost-green rounded-xl p-4">
+            <div className="size-10 rounded-lg bg-emerald-500/20 mb-3" />
+            <div className="text-xs font-semibold text-emerald-300 mb-0.5">Frost Green</div>
+            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-green</div>
+            <div className="mt-3 h-1 rounded-full bg-emerald-500/30 overflow-hidden">
+              <div className="h-full w-4/5 bg-emerald-500 rounded-full" />
+            </div>
+          </div>
+          <div className="glass-frost-blue rounded-xl p-4">
+            <div className="size-10 rounded-lg bg-blue-500/20 mb-3" />
+            <div className="text-xs font-semibold text-blue-300 mb-0.5">Frost Blue</div>
+            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-blue</div>
+            <div className="mt-3 h-1 rounded-full bg-blue-500/30 overflow-hidden">
+              <div className="h-full w-3/5 bg-blue-500 rounded-full" />
+            </div>
+          </div>
+          <div className="glass-frost-orange rounded-xl p-4">
+            <div className="size-10 rounded-lg bg-orange-500/20 mb-3" />
+            <div className="text-xs font-semibold text-orange-300 mb-0.5">Frost Orange</div>
+            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-orange</div>
+            <div className="mt-3 h-1 rounded-full bg-orange-500/30 overflow-hidden">
+              <div className="h-full w-2/3 bg-orange-500 rounded-full" />
+            </div>
+          </div>
+          <div className="glass-frost-red rounded-xl p-4">
+            <div className="size-10 rounded-lg bg-red-500/20 mb-3" />
+            <div className="text-xs font-semibold text-red-300 mb-0.5">Frost Red</div>
+            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-red</div>
+            <div className="mt-3 h-1 rounded-full bg-red-500/30 overflow-hidden">
+              <div className="h-full w-1/3 bg-red-500 rounded-full" />
+            </div>
+          </div>
+        </Grid>
       </Section>
 
       <hr className="glass-divider my-8" />
@@ -1212,60 +1292,60 @@ export default function ShowcasePage() {
             href="https://app.notion.com/p/Claude-Dashboard-a8e881eceb328360b52c8170fd7e7682"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block"
+            className="group block h-full"
           >
-            <GlassCard glow="indigo" className="h-full">
+            <div className="glass-frost-green rounded-xl p-5 h-full transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
-                <div className="size-10 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-sm group-hover:bg-indigo-500/20 transition-colors">
-                  <Book className="size-5 text-foreground/70 group-hover:text-indigo-400 transition-colors" />
+                <div className="size-10 rounded-lg bg-emerald-500/15 flex items-center justify-center transition-colors group-hover:bg-emerald-500/25">
+                  <Book className="size-5 text-emerald-400" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold group-hover:text-indigo-400 transition-colors">
+                  <div className="text-sm font-semibold text-emerald-300">
                     Claude Dashboard
                   </div>
-                  <div className="text-[10px] text-foreground/50 uppercase tracking-wider">
+                  <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
                     Notion Page
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-foreground/60 leading-relaxed">
+              <p className="text-xs text-foreground/55 leading-relaxed">
                 ZES Claude Dashboard — project overview, agent integration guide, and system architecture documentation.
               </p>
-              <div className="mt-3 flex items-center gap-1.5 text-[10px] text-indigo-400/70 group-hover:text-indigo-400 transition-colors">
+              <div className="mt-3 flex items-center gap-1.5 text-[10px] text-emerald-400/60 group-hover:text-emerald-400 transition-colors">
                 <span>Open page</span>
                 <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform" />
               </div>
-            </GlassCard>
+            </div>
           </a>
 
           <a
             href="https://app.notion.com/p/Claude-Dashboard-a8e881eceb328360b52c8170fd7e7682"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block"
+            className="group block h-full"
           >
-            <GlassCard glow="cyan" className="h-full">
+            <div className="glass-frost-blue rounded-xl p-5 h-full transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
-                <div className="size-10 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-sm group-hover:bg-cyan-500/20 transition-colors">
-                  <Share2 className="size-5 text-foreground/70 group-hover:text-cyan-400 transition-colors" />
+                <div className="size-10 rounded-lg bg-blue-500/15 flex items-center justify-center transition-colors group-hover:bg-blue-500/25">
+                  <Share2 className="size-5 text-blue-400" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold group-hover:text-cyan-400 transition-colors">
+                  <div className="text-sm font-semibold text-blue-300">
                     System Docs
                   </div>
-                  <div className="text-[10px] text-foreground/50 uppercase tracking-wider">
+                  <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
                     Notion Wiki
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-foreground/60 leading-relaxed">
+              <p className="text-xs text-foreground/55 leading-relaxed">
                 ZES orchestration system documentation — agent workflow guides, architecture decisions, and deployment runbooks.
               </p>
-              <div className="mt-3 flex items-center gap-1.5 text-[10px] text-cyan-400/70 group-hover:text-cyan-400 transition-colors">
+              <div className="mt-3 flex items-center gap-1.5 text-[10px] text-blue-400/60 group-hover:text-blue-400 transition-colors">
                 <span>Open page</span>
                 <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform" />
               </div>
-            </GlassCard>
+            </div>
           </a>
         </Grid>
       </Section>
