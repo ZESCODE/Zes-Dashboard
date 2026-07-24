@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import BracketsIcon from "@/components/icons/brackets";
 import BuildingIcon from "@/components/icons/building";
+import OrgChart, { OrgNode as CanvasOrgNode } from "@/components/dashboard/org-chart";
 
 /* --------------- Types --------------- */
 
