@@ -134,11 +134,11 @@ export default function DashboardOverview() {
     >
       {/* Top Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        <DashboardStat label="SERVICES" value={String(stats.filter(s => s.status === "running").length)} description={`OF ${stats.length} ONLINE`} icon={GearIcon} intent={stats.filter(s => s.status === "running").length > 0 ? "positive" : "negative"} direction="up" />
-        <DashboardStat label="PENDING TASKS" value={String(taskSummary.pending)} description="IN QUEUE" icon={Circle} intent={taskSummary.pending > 0 ? "warning" : "positive"} direction={taskSummary.pending > 0 ? "up" : "down"} />
-        <DashboardStat label="RUNNING" value={String(taskSummary.running)} description="ACTIVE TASKS" icon={Play} intent={taskSummary.running > 0 ? "positive" : "negative"} direction={taskSummary.running > 0 ? "up" : "down"} />
-        <DashboardStat label="COMPANIES" value={String(companyCount)} description="ACTIVE GROUPS" icon={Users} intent={companyCount > 0 ? "positive" : "negative"} direction={companyCount > 1 ? "up" : "down"} />
-        <DashboardStat label="AGENTS" value={String(agentCount)} description="TOTAL" icon={Users} intent={agentCount > 0 ? "positive" : "negative"} direction={agentCount > 0 ? "up" : "down"} />
+        <DashboardStat label="SERVICES" value={String(stats.filter(s => s.status === "running").length)} description={`OF ${stats.length} ONLINE`} icon={GearIcon} intent={stats.filter(s => s.status === "running").length > 0 ? "positive" : "negative"} direction="up" frost="blue" />
+        <DashboardStat label="PENDING TASKS" value={String(taskSummary.pending)} description="IN QUEUE" icon={Circle} intent={taskSummary.pending > 0 ? "warning" : "positive"} direction={taskSummary.pending > 0 ? "up" : "down"} frost="orange" />
+        <DashboardStat label="RUNNING" value={String(taskSummary.running)} description="ACTIVE TASKS" icon={Play} intent={taskSummary.running > 0 ? "positive" : "negative"} direction={taskSummary.running > 0 ? "up" : "down"} frost="green" />
+        <DashboardStat label="COMPANIES" value={String(companyCount)} description="ACTIVE GROUPS" icon={Users} intent={companyCount > 0 ? "positive" : "negative"} direction={companyCount > 1 ? "up" : "down"} frost="blue" />
+        <DashboardStat label="AGENTS" value={String(agentCount)} description="TOTAL" icon={Users} intent={agentCount > 0 ? "positive" : "negative"} direction={agentCount > 0 ? "up" : "down"} frost="blue" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -242,7 +242,7 @@ export default function DashboardOverview() {
         </DashboardCard>
 
         {/* Quick Actions */}
-        <DashboardCard title="QUICK ACTIONS">
+        <DashboardCard title="QUICK ACTIONS" frost="blue">
           <div className="space-y-2">
             <Link href="/laboratory">
               <div className="bg-accent/20 rounded-lg p-3 hover:bg-accent/40 transition-colors cursor-pointer">

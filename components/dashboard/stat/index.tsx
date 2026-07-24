@@ -13,6 +13,7 @@ interface DashboardStatProps {
   icon: React.ElementType;
   intent?: "positive" | "negative" | "neutral";
   direction?: "up" | "down";
+  frost?: "green" | "blue" | "orange" | "red";
 }
 
 export default function DashboardStat({
@@ -23,6 +24,7 @@ export default function DashboardStat({
   tag,
   intent,
   direction,
+  frost,
 }: DashboardStatProps) {
   const Icon = icon;
 
@@ -58,7 +60,7 @@ export default function DashboardStat({
   const { prefix, numericValue, suffix, isNumeric } = parseValue(value);
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className={cn("relative overflow-hidden", frost && `glass-frost-${frost}`)}>
       <CardHeader className="flex items-center justify-between">
         <CardTitle className="flex items-center gap-2.5">
           <Bullet />
