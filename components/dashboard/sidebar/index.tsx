@@ -105,6 +105,7 @@ const data = {
         { title: "Scheduler", url: "/scheduler", icon: CalendarIcon, isActive: false } as NavItem,
         { title: "Templates", url: "/templates", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Terminal", url: "/terminal", icon: TerminalIcon, isActive: false } as NavItem,
+        { title: "Wireflow", url: "/wireflow", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Memory Hub", url: "/memory", icon: CuteRobotIcon, isActive: false } as NavItem,
         { title: "Topology", url: "/topology", icon: LayoutLeftIcon, isActive: false } as NavItem,
         { title: "Processes", url: "/processes", icon: GearIcon, isActive: false } as NavItem,
