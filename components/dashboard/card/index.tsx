@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent, type FrostVariant } from "@/components/ui/card";
 import { Bullet } from "@/components/ui/bullet";

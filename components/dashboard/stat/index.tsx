@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import NumberFlow from "@number-flow/react";
 import { Card, CardHeader, CardTitle, CardContent, type FrostVariant } from "@/components/ui/card";

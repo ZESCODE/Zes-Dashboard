@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import DashboardCard from "@/components/dashboard/card";
 import type { SecurityStatus as SecurityStatusType } from "@/types/dashboard";

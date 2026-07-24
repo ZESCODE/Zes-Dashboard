@@ -1,9 +1,21 @@
 {
-    "name": "my-v0-project",
+    "name": "zes-dashboard",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
+    "packageManager": "pnpm@10.34.3",
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=10"
+    },
+    "pnpm": {
+        "overrides": {
+            "react": "$react",
+            "react-dom": "$react-dom"
+        }
+    },
     "scripts": {
-        "build": "next build",
+        "build": "next build --webpack",
         "dev": "next dev -p 7070 --webpack",
         "lint": "eslint .",
         "start": "next start"
