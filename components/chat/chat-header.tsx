@@ -90,7 +90,7 @@ export function ChatHeader({
               variant="ghost"
               size="sm"
               onClick={handleBackClick}
-              className="text-foreground/50 p-1 pr-3"
+              className="text-foreground/70 p-1 pr-3"
             >
               <ArrowLeftIcon className="size-5" />
             </Button>

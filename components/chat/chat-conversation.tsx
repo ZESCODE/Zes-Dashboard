@@ -75,7 +75,7 @@ export default function ChatConversation({
         <div className="text-center">
           <Badge
             variant="secondary"
-            className="font-medium text-xs text-foreground/40"
+            className="font-medium text-xs text-foreground/65"
           >
             {formatDate(activeConversation.messages[0]?.timestamp || "")}
           </Badge>
@@ -96,7 +96,7 @@ export default function ChatConversation({
             >
               {/* Timestamp for the group */}
               <div className="w-full flex justify-center mb-1">
-                <span className="text-xs text-foreground/40">
+                <span className="text-xs text-foreground/65">
                   {formatTime(group.timestamp)}
                 </span>
               </div>

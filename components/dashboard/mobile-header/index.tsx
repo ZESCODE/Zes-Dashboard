@@ -18,7 +18,7 @@ export function MobileHeader({ mockData }: MobileHeaderProps) {
     <div className="lg:hidden h-header-mobile sticky top-0 z-50 glass-strong border-b border-white/10">
       <div className="flex items-center justify-between px-4 py-3">
         {/* Left: Sidebar Menu */}
-        <SidebarTrigger />
+        <SidebarTrigger aria-label="Open sidebar menu" />
 
         {/* Center: ZES brand — glow Z + gradient text */}
         <div className="flex items-center gap-2">

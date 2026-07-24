@@ -43,9 +43,9 @@ export default function ChatPreview({
         <div className="flex items-center justify-between">
           <div className="flex items-baseline gap-2">
             <h3 className="font-display text-lg">{user.name}</h3>
-            <p className="text-xs text-foreground/50">{user.username}</p>
+            <p className="text-xs text-foreground/70">{user.username}</p>
           </div>
-          <span className="text-xs text-foreground/40">
+          <span className="text-xs text-foreground/65">
             {formatDate(conversation.lastMessage.timestamp)}
           </span>
         </div>

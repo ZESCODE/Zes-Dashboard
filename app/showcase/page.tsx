@@ -39,12 +39,12 @@ function Section({
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-display tracking-wide text-foreground/80 flex items-center gap-2">
+        <h2 className="text-lg font-display tracking-wide text-foreground/85 flex items-center gap-2">
           <span className="inline-block size-1.5 rounded-full bg-primary/60" />
           {title}
         </h2>
         {description && (
-          <p className="text-xs text-foreground/50 mt-1 ml-4">{description}</p>
+          <p className="text-xs text-foreground/70 mt-1 ml-4">{description}</p>
         )}
       </div>
       {children}
@@ -205,7 +205,7 @@ function GlassStatCard({
           {change}
         </span>
       </div>
-      <div className="text-[10px] uppercase tracking-widest text-foreground/50 font-semibold mb-0.5">
+      <div className="text-[10px] uppercase tracking-widest text-foreground/70 font-semibold mb-0.5">
         {label}
       </div>
       <div className={cn("text-2xl font-display font-bold", t.accent)}>{value}</div>
@@ -237,12 +237,12 @@ function GlassFeatureCard({
         </div>
         <div>
           <div className={cn("text-sm font-semibold", t.accent)}>{title}</div>
-          <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
+          <div className="text-[10px] text-foreground/65 uppercase tracking-wider">
             Feature
           </div>
         </div>
       </div>
-      <p className="text-xs text-foreground/55 leading-relaxed mb-3">
+      <p className="text-xs text-foreground/75 leading-relaxed mb-3">
         {description}
       </p>
       {tags && (
@@ -429,14 +429,14 @@ function ExperimentCard({ exp }: { exp: Experiment }) {
       </div>
 
       {/* Description */}
-      <p className="text-xs text-foreground/55 mb-4 leading-relaxed">
+      <p className="text-xs text-foreground/75 mb-4 leading-relaxed">
         {exp.description}
       </p>
 
       {/* Progress */}
       <div className="space-y-1.5 mb-4">
         <div className="flex items-center justify-between text-[10px]">
-          <span className="text-foreground/40 uppercase tracking-wider">
+          <span className="text-foreground/65 uppercase tracking-wider">
             Progress
           </span>
           <span className={cn("font-mono font-bold tabular-nums", t.accent)}>
@@ -773,14 +773,14 @@ export default function ShowcasePage() {
         <GlassCard>
           <div className="space-y-5">
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-foreground/40 mb-3">
+              <p className="text-[10px] uppercase tracking-wider text-foreground/65 mb-3">
                 Sizes
               </p>
               <div className="flex flex-wrap gap-3">
-                <button className="glass-btn px-5 py-2.5 rounded-lg text-sm font-medium text-foreground/80">
+                <button className="glass-btn px-5 py-2.5 rounded-lg text-sm font-medium text-foreground/85">
                   Large
                 </button>
-                <button className="glass-btn px-4 py-2 rounded-lg text-xs font-medium text-foreground/80">
+                <button className="glass-btn px-4 py-2 rounded-lg text-xs font-medium text-foreground/85">
                   Default Glass
                 </button>
                 <button className="glass-btn-primary px-4 py-2 rounded-lg text-xs font-medium text-white">
@@ -793,7 +793,7 @@ export default function ShowcasePage() {
                   Destructive
                 </button>
                 <button
-                  className="glass-btn px-4 py-2 rounded-lg text-xs font-medium text-foreground/30"
+                  className="glass-btn px-4 py-2 rounded-lg text-xs font-medium text-foreground/70"
                   disabled
                 >
                   Disabled
@@ -801,11 +801,11 @@ export default function ShowcasePage() {
               </div>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-foreground/40 mb-3">
+              <p className="text-[10px] uppercase tracking-wider text-foreground/65 mb-3">
                 With Icons
               </p>
               <div className="flex flex-wrap gap-3">
-                <button className="glass-btn px-3 py-1.5 rounded-lg text-[10px] font-medium text-foreground/80 flex items-center gap-1.5">
+                <button className="glass-btn px-3 py-1.5 rounded-lg text-[10px] font-medium text-foreground/85 flex items-center gap-1.5">
                   <Eye className="size-3" /> View
                 </button>
                 <button className="glass-btn-primary px-3 py-1.5 rounded-lg text-[10px] font-medium text-white flex items-center gap-1.5">
@@ -816,7 +816,7 @@ export default function ShowcasePage() {
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="glass-btn px-3 py-1.5 rounded-lg text-[10px] font-medium text-foreground/80 flex items-center gap-1.5"
+                  className="glass-btn px-3 py-1.5 rounded-lg text-[10px] font-medium text-foreground/85 flex items-center gap-1.5"
                 >
                   {copied ? (
                     <>
@@ -880,7 +880,7 @@ export default function ShowcasePage() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-wider text-foreground/50 font-medium">
+                <label className="text-[10px] uppercase tracking-wider text-foreground/70 font-medium">
                   Text Input
                 </label>
                 <input
@@ -888,31 +888,31 @@ export default function ShowcasePage() {
                   placeholder="Enter text..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="glass-input w-full rounded-lg px-3 py-2 text-xs text-foreground placeholder:text-foreground/30 outline-none"
+                  className="glass-input w-full rounded-lg px-3 py-2 text-xs text-foreground placeholder:text-foreground/70 outline-none"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-wider text-foreground/50 font-medium">
+                <label className="text-[10px] uppercase tracking-wider text-foreground/70 font-medium">
                   With Icon
                 </label>
                 <div className="relative">
-                  <Mail className="size-3 absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30" />
+                  <Mail className="size-3 absolute left-3 top-1/2 -translate-y-1/2 text-foreground/70" />
                   <input
                     type="email"
                     placeholder="email@example.com"
-                    className="glass-input w-full rounded-lg pl-8 pr-3 py-2 text-xs text-foreground placeholder:text-foreground/30 outline-none"
+                    className="glass-input w-full rounded-lg pl-8 pr-3 py-2 text-xs text-foreground placeholder:text-foreground/70 outline-none"
                   />
                 </div>
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-wider text-foreground/50 font-medium">
+              <label className="text-[10px] uppercase tracking-wider text-foreground/70 font-medium">
                 Textarea
               </label>
               <textarea
                 placeholder="Write something..."
                 rows={3}
-                className="glass-input w-full rounded-lg px-3 py-2 text-xs text-foreground placeholder:text-foreground/30 outline-none resize-none"
+                className="glass-input w-full rounded-lg px-3 py-2 text-xs text-foreground placeholder:text-foreground/70 outline-none resize-none"
               />
             </div>
           </div>
@@ -935,7 +935,7 @@ export default function ShowcasePage() {
               </div>
               <div>
                 <div className="font-display text-base text-emerald-300">Frost Green</div>
-                <div className="text-[10px] text-foreground/40">
+                <div className="text-[10px] text-foreground/65">
                   backdrop-blur(20px)
                 </div>
               </div>
@@ -944,7 +944,7 @@ export default function ShowcasePage() {
               <div className="w-3/4 h-full bg-emerald-500 rounded-full" />
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-foreground/40">Progress</span>
+              <span className="text-foreground/65">Progress</span>
               <span className="font-mono text-emerald-300 font-bold">75%</span>
             </div>
           </div>
@@ -957,7 +957,7 @@ export default function ShowcasePage() {
               </div>
               <div>
                 <div className="font-display text-base text-blue-300">Frost Blue</div>
-                <div className="text-[10px] text-foreground/40">
+                <div className="text-[10px] text-foreground/65">
                   backdrop-blur(20px)
                 </div>
               </div>
@@ -966,7 +966,7 @@ export default function ShowcasePage() {
               <div className="size-2 rounded-full bg-blue-400 animate-pulse" />
               <span className="text-xs text-blue-300">System operational</span>
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-foreground/40">
+            <div className="flex items-center gap-2 text-[10px] text-foreground/65">
               <span>Uptime: 99.99%</span>
               <span>·</span>
               <span>Latency: 12ms</span>
@@ -981,7 +981,7 @@ export default function ShowcasePage() {
               </div>
               <div>
                 <div className="font-display text-base text-orange-300">Frost Orange</div>
-                <div className="text-[10px] text-foreground/40">
+                <div className="text-[10px] text-foreground/65">
                   Warning variant
                 </div>
               </div>
@@ -1002,7 +1002,7 @@ export default function ShowcasePage() {
               </div>
               <div>
                 <div className="font-display text-base text-red-300">Frost Red</div>
-                <div className="text-[10px] text-foreground/40">
+                <div className="text-[10px] text-foreground/65">
                   Error variant
                 </div>
               </div>
@@ -1070,7 +1070,7 @@ export default function ShowcasePage() {
               <Bullet variant="success" />
             </div>
             <div className="text-2xl font-display font-bold text-emerald-300 mb-0.5">2.1</div>
-            <div className="text-[10px] text-foreground/40 font-mono mb-3">load average</div>
+            <div className="text-[10px] text-foreground/65 font-mono mb-3">load average</div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
               <div className="h-full rounded-full bg-emerald-500 transition-all duration-500" style={{ width: "26%" }} />
             </div>
@@ -1085,7 +1085,7 @@ export default function ShowcasePage() {
               <Bullet variant="success" />
             </div>
             <div className="text-2xl font-display font-bold text-blue-300 mb-0.5">4.2 GB</div>
-            <div className="text-[10px] text-foreground/40 font-mono mb-3">of 8.0 GB total</div>
+            <div className="text-[10px] text-foreground/65 font-mono mb-3">of 8.0 GB total</div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
               <div className="h-full rounded-full bg-blue-500 transition-all duration-500" style={{ width: "52%" }} />
             </div>
@@ -1100,7 +1100,7 @@ export default function ShowcasePage() {
               <Bullet variant="warning" />
             </div>
             <div className="text-2xl font-display font-bold text-orange-300 mb-0.5">187 GB</div>
-            <div className="text-[10px] text-foreground/40 font-mono mb-3">of 256 GB total</div>
+            <div className="text-[10px] text-foreground/65 font-mono mb-3">of 256 GB total</div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
               <div className="h-full rounded-full bg-orange-500 transition-all duration-500" style={{ width: "73%" }} />
             </div>
@@ -1115,7 +1115,7 @@ export default function ShowcasePage() {
               <Bullet variant="destructive" />
             </div>
             <div className="text-2xl font-display font-bold text-red-300 mb-0.5">98%</div>
-            <div className="text-[10px] text-foreground/40 font-mono mb-3">bandwidth used</div>
+            <div className="text-[10px] text-foreground/65 font-mono mb-3">bandwidth used</div>
             <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
               <div className="h-full rounded-full bg-red-500 transition-all duration-500" style={{ width: "98%" }} />
             </div>
@@ -1188,7 +1188,7 @@ export default function ShowcasePage() {
           <div className="glass-frost-green rounded-xl p-4">
             <div className="size-10 rounded-lg bg-emerald-500/20 mb-3" />
             <div className="text-xs font-semibold text-emerald-300 mb-0.5">Frost Green</div>
-            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-green</div>
+            <div className="font-mono text-[10px] text-foreground/65">.glass-frost-green</div>
             <div className="mt-3 h-1 rounded-full bg-emerald-500/30 overflow-hidden">
               <div className="h-full w-4/5 bg-emerald-500 rounded-full" />
             </div>
@@ -1196,7 +1196,7 @@ export default function ShowcasePage() {
           <div className="glass-frost-blue rounded-xl p-4">
             <div className="size-10 rounded-lg bg-blue-500/20 mb-3" />
             <div className="text-xs font-semibold text-blue-300 mb-0.5">Frost Blue</div>
-            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-blue</div>
+            <div className="font-mono text-[10px] text-foreground/65">.glass-frost-blue</div>
             <div className="mt-3 h-1 rounded-full bg-blue-500/30 overflow-hidden">
               <div className="h-full w-3/5 bg-blue-500 rounded-full" />
             </div>
@@ -1204,7 +1204,7 @@ export default function ShowcasePage() {
           <div className="glass-frost-orange rounded-xl p-4">
             <div className="size-10 rounded-lg bg-orange-500/20 mb-3" />
             <div className="text-xs font-semibold text-orange-300 mb-0.5">Frost Orange</div>
-            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-orange</div>
+            <div className="font-mono text-[10px] text-foreground/65">.glass-frost-orange</div>
             <div className="mt-3 h-1 rounded-full bg-orange-500/30 overflow-hidden">
               <div className="h-full w-2/3 bg-orange-500 rounded-full" />
             </div>
@@ -1212,7 +1212,7 @@ export default function ShowcasePage() {
           <div className="glass-frost-red rounded-xl p-4">
             <div className="size-10 rounded-lg bg-red-500/20 mb-3" />
             <div className="text-xs font-semibold text-red-300 mb-0.5">Frost Red</div>
-            <div className="font-mono text-[10px] text-foreground/40">.glass-frost-red</div>
+            <div className="font-mono text-[10px] text-foreground/65">.glass-frost-red</div>
             <div className="mt-3 h-1 rounded-full bg-red-500/30 overflow-hidden">
               <div className="h-full w-1/3 bg-red-500 rounded-full" />
             </div>
@@ -1270,7 +1270,7 @@ export default function ShowcasePage() {
               {" {gradient transparent→white/10→transparent}"}
             </div>
           </div>
-          <p className="text-xs text-foreground/50 mt-4">
+          <p className="text-xs text-foreground/70 mt-4">
             Combine with{" "}
             <code className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">
               glow=&quot;indigo&quot; | &quot;emerald&quot; | &quot;rose&quot; | &quot;amber&quot;
@@ -1303,12 +1303,12 @@ export default function ShowcasePage() {
                   <div className="text-sm font-semibold text-emerald-300">
                     Claude Dashboard
                   </div>
-                  <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
+                  <div className="text-[10px] text-foreground/65 uppercase tracking-wider">
                     Notion Page
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-foreground/55 leading-relaxed">
+              <p className="text-xs text-foreground/75 leading-relaxed">
                 ZES Claude Dashboard — project overview, agent integration guide, and system architecture documentation.
               </p>
               <div className="mt-3 flex items-center gap-1.5 text-[10px] text-emerald-400/60 group-hover:text-emerald-400 transition-colors">
@@ -1333,12 +1333,12 @@ export default function ShowcasePage() {
                   <div className="text-sm font-semibold text-blue-300">
                     System Docs
                   </div>
-                  <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
+                  <div className="text-[10px] text-foreground/65 uppercase tracking-wider">
                     Notion Wiki
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-foreground/55 leading-relaxed">
+              <p className="text-xs text-foreground/75 leading-relaxed">
                 ZES orchestration system documentation — agent workflow guides, architecture decisions, and deployment runbooks.
               </p>
               <div className="mt-3 flex items-center gap-1.5 text-[10px] text-blue-400/60 group-hover:text-blue-400 transition-colors">
