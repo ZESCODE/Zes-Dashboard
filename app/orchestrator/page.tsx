@@ -16,6 +16,7 @@ import {
   Play, Pause, XCircle, Trash2, Plus, Send, User,
 } from "lucide-react";
 import LayoutLeftIcon from "@/components/icons/layout";
+import OrgChart, { OrgNode } from "@/components/dashboard/org-chart";
 import { getHealth, getSystemInfo } from "@/lib/api-client";
 
 /* ────────────── Types ────────────── */
@@ -340,6 +341,36 @@ export default function OrchestratorPage() {
           </div>
         </DashboardCard>
       </div>
+
+      {/* ── Agent Orchestration Hierarchy ── */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          Agent Orchestration Hierarchy
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="rounded-xl border border-border overflow-hidden p-4" style={{ minHeight: 400 }}>
+          <OrgChart
+            nodes={[
+              { id: "orchestrator", name: "Orchestrator", role: "lead", title: "ZES Orchestrator", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                { id: "planning", name: "Planning", role: "assistant", title: "Task Planner", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "brainstorm", name: "Brainstorm", role: "specialist", title: "Ideation", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "research", name: "Research", role: "specialist", title: "Deep Research", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]},
+                { id: "execution", name: "Execution", role: "assistant", title: "Code Agent", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "codex", name: "Codex", role: "specialist", title: "Coding Agent", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "hermes", name: "Hermes", role: "specialist", title: "DevTools Agent", status: "stopped", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]},
+                { id: "memory", name: "Memory Hub", role: "assistant", title: "Knowledge Store", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "sync", name: "Sync", role: "specialist", title: "Memory Sync", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]}
+              ]}
+            ]}
+            compact
+          />
+        </div>
+      </details>
+
     </DashboardPageLayout>
   );
 }

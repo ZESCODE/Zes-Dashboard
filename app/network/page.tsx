@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { RefreshCw, Wifi, Globe, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
 
 interface NetInterface {
   interface: string;
@@ -136,6 +137,19 @@ export default function NetworkPage() {
           ))}
         </div>
       </DashboardCard>
+
+      {/* ── Network Topology Diagram ── */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          Network Topology Diagram
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="rounded-xl border border-border overflow-hidden" style={{ height: 500 }}>
+          <WiringDiagram />
+        </div>
+      </details>
+
     </DashboardPageLayout>
   );
 }

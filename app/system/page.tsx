@@ -8,6 +8,8 @@ import { getSystemInfo, type SystemInfo } from "@/lib/api-client";
 import { getProxyStatus, type ProxyStatus, trimModelName, countRunningServices } from "@/lib/api-client";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
+import OrgChart, { OrgNode } from "@/components/dashboard/org-chart";
 
 type SvcCount = { total: number; running: number };
 
@@ -209,6 +211,33 @@ export default function SystemPage() {
           ))}
         </div>
       </DashboardCard>
+
+      {/* ── System Architecture ── */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          System Architecture
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="space-y-4">
+          <div className="rounded-xl border border-border overflow-hidden" style={{ height: 400 }}>
+            <WiringDiagram />
+          </div>
+          <div className="rounded-xl border border-border overflow-hidden p-4" style={{ minHeight: 350 }}>
+            <OrgChart
+              nodes={[
+                { id: "system", name: "ZES System", role: "lead", title: "Orchestrator", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "agents", name: "Agent Layer", role: "assistant", title: "Codex · Claude · Hermes", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "gateway", name: "Gateway", role: "assistant", title: "9Router · Teams", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "infra", name: "Infrastructure", role: "assistant", title: "Memory · CDP · VS Code", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]}
+              ]}
+              compact
+            />
+          </div>
+        </div>
+      </details>
+
     </DashboardPageLayout>
   );
 }

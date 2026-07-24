@@ -10,6 +10,7 @@ import {
   ArrowRight, Zap, Bot, Router, Terminal, HardDrive, Cloud, Activity,
 } from "lucide-react";
 import { getHealth } from "@/lib/api-client";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
 import GearIcon from "@/components/icons/gear";
 
 const services = [
@@ -181,6 +182,19 @@ export default function TopologyPage() {
           );
         })
       )}
+
+
+      {/* ── Interactive Wiring Diagram ── */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          Interactive Topology Diagram
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="rounded-xl border border-border overflow-hidden" style={{ height: 500 }}>
+          <WiringDiagram />
+        </div>
+      </details>
 
       {/* Legend */}
       <div className="flex items-center gap-4 text-[10px] text-muted-foreground mt-4 pt-4 border-t border-border/30">

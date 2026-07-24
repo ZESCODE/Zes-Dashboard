@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Search, RefreshCw, Cpu, HardDrive, Activity, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ProcessorIcon from "@/components/icons/proccesor";
+import OrgChart, { OrgNode } from "@/components/dashboard/org-chart";
 
 interface Process {
   pid: string;
@@ -158,6 +159,32 @@ export default function ProcessesPage() {
           </div>
         )}
       </DashboardCard>
+
+      {/* ── Process Dependency Tree ── */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          Process Dependency Tree
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="rounded-xl border border-border overflow-hidden p-4" style={{ minHeight: 400 }}>
+          <OrgChart
+            nodes={[
+              { id: "init", name: "Init", role: "lead", title: "System Init", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                { id: "services", name: "Services", role: "assistant", title: "Service Manager", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "9router", name: "9Router", role: "specialist", title: "AI Gateway", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "hermes-svc", name: "Hermes", role: "specialist", title: "Agent Service", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]},
+                { id: "dashboard", name: "Dashboard", role: "assistant", title: "UI Server", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
+                  { id: "frontend", name: "Frontend", role: "specialist", title: "Next.js", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
+                ]}
+              ]}
+            ]}
+            compact
+          />
+        </div>
+      </details>
+
     </DashboardPageLayout>
   );
 }
