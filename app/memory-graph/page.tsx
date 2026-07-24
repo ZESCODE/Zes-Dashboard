@@ -190,8 +190,7 @@ export default function MemoryGraphPage() {
       
       // Ensure container has explicit dimensions before creating network
       if (containerRef.current) {
-        containerRef.current.style.height = '600px';
-        if (window.innerWidth >= 1024) containerRef.current.style.height = '650px';
+        containerRef.current.style.height = 'calc(100vh - 280px)';
       }
 
       const visNodes = nodes.map(n => ({
@@ -357,7 +356,7 @@ export default function MemoryGraphPage() {
 
       {/* Graph + Detail */}
       <div className="flex flex-col lg:flex-row gap-4">
-        <div className="flex-1 min-h-[600px] lg:min-h-[650px] rounded-xl border border-border/40 bg-accent/5 relative overflow-hidden">
+        <div className="flex-1 rounded-xl border border-border/40 bg-accent/5 relative overflow-hidden" style={{ minHeight: "calc(100vh - 280px)" }}>
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center z-10 bg-background/60">
               <div className="flex items-center gap-3">
@@ -366,7 +365,7 @@ export default function MemoryGraphPage() {
               </div>
             </div>
           )}
-          <div ref={containerRef} className="w-full h-full min-h-[600px] lg:min-h-[650px]" />
+          <div ref={containerRef} className="w-full" style={{ height: "calc(100vh - 280px)" }} />
         </div>
 
         {/* Side panel */}
