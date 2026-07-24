@@ -1,6 +1,6 @@
 import React from "react";
 import NumberFlow from "@number-flow/react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, type FrostVariant } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bullet } from "@/components/ui/bullet";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ interface DashboardStatProps {
   icon: React.ElementType;
   intent?: "positive" | "negative" | "neutral";
   direction?: "up" | "down";
+  frost?: FrostVariant;
 }
 
 export default function DashboardStat({
@@ -23,6 +24,7 @@ export default function DashboardStat({
   tag,
   intent,
   direction,
+  frost = "none",
 }: DashboardStatProps) {
   const Icon = icon;
 
@@ -58,16 +60,21 @@ export default function DashboardStat({
   const { prefix, numericValue, suffix, isNumeric } = parseValue(value);
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className="relative overflow-hidden" frost={frost}>
       <CardHeader className="flex items-center justify-between">
         <CardTitle className="flex items-center gap-2.5">
-          <Bullet />
+          <Bullet variant={
+            frost === "green" ? "success" :
+            frost === "red" ? "destructive" :
+            frost === "orange" ? "warning" :
+            "default"
+          } />
           {label}
         </CardTitle>
         <Icon className="size-4 text-muted-foreground" />
       </CardHeader>
 
-      <CardContent className="bg-accent flex-1 pt-2 md:pt-6 overflow-clip relative">
+      <CardContent frost={frost} className="bg-accent flex-1 pt-2 md:pt-6 overflow-clip relative">
         <div className="flex items-center">
           <span className="text-4xl md:text-5xl font-display">
             {isNumeric ? (
