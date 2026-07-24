@@ -255,9 +255,7 @@
 .group:hover .animate-marquee-down {
   animation-play-state: paused;
 }
-
-/* ── Glassmorphic Utility Classes ── */
-@layer utilities {
+/* ── Glassmorphic Utility Classes (unlayered for Turbopack compat) ── */
   .glass {
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
@@ -447,7 +445,7 @@
       0 1px 0 rgba(59, 130, 246, 0.2) inset,
       0 -1px 0 rgba(0, 0, 0, 0.15) inset;
   }
-}
+
 
 :root:not(.dark) .glass { background: rgba(255, 255, 255, 0.5); border-color: rgba(0,0,0,0.08); }
 :root:not(.dark) .glass-strong { background: rgba(255, 255, 255, 0.7); border-color: rgba(0,0,0,0.1); }
