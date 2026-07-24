@@ -154,7 +154,7 @@ export default function OrgChartPage() {
   const [roster, setRoster] = useState<RosterData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<"tree" | "cards">("tree");
+  const [view, setView] = useState<"tree" | "cards" | "canvas">("tree");
 
   const fetchData = useCallback(async () => {
     try {
@@ -184,6 +184,7 @@ export default function OrgChartPage() {
             <div className="flex bg-muted rounded-lg p-0.5">
               <button onClick={() => setView("tree")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "tree" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Tree</button>
               <button onClick={() => setView("cards")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "cards" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Cards</button>
+              <button onClick={() => setView("canvas")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "canvas" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Canvas</button>
             </div>
             <Button variant="outline" size="sm" className="h-7 text-[10px]" onClick={fetchData}>REFRESH</Button>
           </div>
@@ -219,7 +220,14 @@ export default function OrgChartPage() {
             <span className="flex items-center gap-1"><span className="size-2 rounded-full bg-yellow-400" /> Paused</span>
           </div>
 
-          {view === "tree" ? (
+          {view === "canvas" ? (
+            <div
+              className="rounded-xl border border-border overflow-hidden"
+              style={{ height: "calc(100vh - 16rem)", minHeight: 480 }}
+            >
+              <OrgChart nodes={(roster?.orgTree ?? []) as CanvasOrgNode[]} />
+            </div>
+          ) : view === "tree" ? (
             <DashboardCard title="ORGANIZATION TREE">
               {roster?.orgTree && roster.orgTree.length > 0 ? (
                 <div className="space-y-4">

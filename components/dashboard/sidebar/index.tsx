@@ -99,6 +99,7 @@ const data = {
       items: [
         { title: "Services", url: "/service", icon: BracketsIcon, isActive: false } as NavItem,
         { title: "System", url: "/system", icon: AtomIcon, isActive: false } as NavItem,
+        { title: "Infrastructure", url: "/system/infrastructure", icon: CloudIcon, isActive: false } as NavItem,
         { title: "Webhooks", url: "/webhooks", icon: GitBranchIcon, isActive: false } as NavItem,
         { title: "Cloud Sync", url: "/cloud", icon: CloudIcon, isActive: false } as NavItem,
         { title: "Activity", url: "/activity", icon: ActivityIcon, isActive: false } as NavItem,
