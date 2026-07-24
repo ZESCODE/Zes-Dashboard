@@ -187,6 +187,12 @@ export default function MemoryGraphPage() {
 
     const initNetwork = async () => {
       const { Network } = await import("vis-network");
+      
+      // Ensure container has explicit dimensions before creating network
+      if (containerRef.current) {
+        containerRef.current.style.height = '600px';
+        if (window.innerWidth >= 1024) containerRef.current.style.height = '650px';
+      }
 
       const visNodes = nodes.map(n => ({
         id: n.id,
@@ -231,6 +237,7 @@ export default function MemoryGraphPage() {
       }));
 
       const network = new Network(containerRef.current!, { nodes: visNodes, edges: visEdges }, {
+        height: '100%',
         nodes: { scaling: { min: 12, max: 45 } },
         edges: { arrows: { to: { enabled: false } } },
         physics: {
@@ -261,6 +268,15 @@ export default function MemoryGraphPage() {
 
       networkRef.current = network;
 
+      // Responsive resize on window change
+      const handleResize = () => {
+        network.fit({ animation: false });
+      };
+      window.addEventListener('resize', handleResize);
+      network.once('stabilizationIterationsDone', () => {
+        network.fit({ animation: true });
+      });
+
       network.on("click", (params: any) => {
         if (params.nodes.length > 0) {
           setSelectedId(Number(params.nodes[0]));
@@ -277,6 +293,7 @@ export default function MemoryGraphPage() {
 
     initNetwork();
     return () => {
+      window.removeEventListener('resize', handleResize);
       if (networkRef.current) { networkRef.current.destroy(); networkRef.current = null; }
     };
   }, [nodes, rels, loading]);
@@ -340,7 +357,7 @@ export default function MemoryGraphPage() {
 
       {/* Graph + Detail */}
       <div className="flex flex-col lg:flex-row gap-4">
-        <div className="flex-1 min-h-[450px] rounded-xl border border-border/40 bg-accent/5 relative overflow-hidden">
+        <div className="flex-1 min-h-[600px] lg:min-h-[650px] rounded-xl border border-border/40 bg-accent/5 relative overflow-hidden">
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center z-10 bg-background/60">
               <div className="flex items-center gap-3">
@@ -349,7 +366,7 @@ export default function MemoryGraphPage() {
               </div>
             </div>
           )}
-          <div ref={containerRef} className="w-full h-full min-h-[450px]" />
+          <div ref={containerRef} className="w-full h-full min-h-[600px] lg:min-h-[650px]" />
         </div>
 
         {/* Side panel */}
