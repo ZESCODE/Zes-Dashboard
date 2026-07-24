@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import CuteRobotIcon from "@/components/icons/cute-robot";

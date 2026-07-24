@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import React from "react";
 import { ExternalLink, Loader2, Wifi, WifiOff } from "lucide-react";

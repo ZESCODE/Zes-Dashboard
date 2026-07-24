@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { BackToTop } from "@/components/dashboard/back-to-top";
 

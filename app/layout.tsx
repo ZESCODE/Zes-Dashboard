@@ -31,13 +31,18 @@ const rebelGrotesk = localFont({
 const isV0 = process.env["VERCEL_URL"]?.includes("vusercontent.net") ?? false;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env["VERCEL_URL"]
+      ? `https://${process.env["VERCEL_URL"]}`
+      : "http://localhost:3000"
+  ),
   title: {
     template: "%s – ZES",
     default: "ZES Orchestration Dashboard",
   },
   description:
     "ZES Orchestration Dashboard — real-time monitoring, agent orchestration, and system control.",
-    generator: 'v0.app'
+  generator: "v0.app",
 };
 
 export default function RootLayout({

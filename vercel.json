@@ -1,6 +1,7 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "next build --webpack",
   "outputDirectory": ".next",
   "regions": ["sin1"],
   "headers": [

@@ -7,11 +7,11 @@ const SCRIPT = join(homedir(), ".hermes", "agent_scheduler.py");
 
 function runJson(...args: string[]): any {
   try {
-    const cmd = `python3 "${SCRIPT}" --json ${args.map(a => `"${a.replace(/"/g, '\\"')}"`).join(" ")}`;
-    const out = execSync(cmd, { timeout: 10000, encoding: "utf-8" });
+    const cmd = `python3 "${SCRIPT}" --json ${args.map(a => `"${a.replace(/"/g, '\\"')}"`).join(" ")} 2>/dev/null`;
+    const out = execSync(cmd, { timeout: 10000, encoding: "utf-8", stdio: ["pipe", "pipe", "ignore"] });
     return JSON.parse(out.trim());
-  } catch (e: any) {
-    return { error: e.message };
+  } catch {
+    return { error: "scheduler unavailable", items: [], scheduled: [] };
   }
 }
 
