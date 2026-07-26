@@ -168,7 +168,7 @@ export default function SchedulerPage() {
 
       {/* Add form */}
       {showForm && (
-        <DashboardCard title="Create Schedule" className="mb-4">
+        <DashboardCard title="Create Schedule" frost="blue" className="mb-4">
           {/* Quick templates */}
           <div className="flex flex-wrap gap-1.5 mb-3">
             <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground self-center">Templates:</span>
@@ -317,7 +317,7 @@ export default function SchedulerPage() {
       )}
 
       {/* Info */}
-      <DashboardCard title="Cron Reference" className="mt-4">
+      <DashboardCard title="Cron Reference" frost="blue" className="mt-4">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-[10px] font-mono">
           <div><span className="text-emerald-400">* * * * *</span> Every minute</div>
           <div><span className="text-emerald-400">0 * * * *</span> Every hour</div>

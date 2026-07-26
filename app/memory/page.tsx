@@ -284,7 +284,7 @@ function StatCard({ icon: Icon, label, value, sub, color }: {
   icon: any; label: string; value: string; sub: string; color: string;
 }) {
   return (
-    <div className="bg-accent/20 rounded-lg p-3 flex items-center gap-2">
+    <div className="glass rounded-xl p-3 flex items-center gap-2">
       <Icon className={cn("size-5 shrink-0", color)} />
       <div>
         <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{label}</div>
@@ -301,7 +301,7 @@ function FactCard({ fact, selected, onSelect }: {
   return (
     <div
       className={cn(
-        "bg-accent/10 rounded-lg p-3 border transition-all cursor-pointer",
+        "glass rounded-xl p-3 border transition-all cursor-pointer",
         selected
           ? "border-primary/60 ring-1 ring-primary/30"
           : "border-border/40 hover:border-primary/30"
@@ -354,7 +354,7 @@ function FactCard({ fact, selected, onSelect }: {
 
 function EntityCard({ entity }: { entity: Entity }) {
   return (
-    <div className="bg-accent/10 rounded-lg p-3 border border-border/40">
+    <div className="glass rounded-xl p-3 border border-border/40">
       <div className="flex items-center gap-2 mb-1">
         <Network className="size-4 text-purple-400" />
         <span className="text-sm font-semibold">{entity.name}</span>
@@ -383,7 +383,7 @@ function MemoryCard({ memory }: { memory: Memory }) {
     feedback: "bg-rose-500/20 text-rose-400",
   };
   return (
-    <div className="bg-accent/10 rounded-lg p-3 border border-border/40">
+    <div className="glass rounded-xl p-3 border border-border/40">
       <div className="flex items-start justify-between gap-2 mb-1">
         <div className="flex items-center gap-1.5 flex-wrap">
           <Badge variant="outline" className={cn("text-[10px] font-mono", typeColors[memory.type] || "")}>

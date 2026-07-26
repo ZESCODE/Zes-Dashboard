@@ -167,7 +167,7 @@ export default function HireAgentPage() {
         <div className="max-w-2xl mx-auto">
           {/* Step 1: Identity */}
           {step === 1 && (
-            <DashboardCard title="AGENT IDENTITY">
+            <DashboardCard title="AGENT IDENTITY" frost="blue">
               <div className="space-y-4">
                 <div>
                   <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Agent Name *</label>
@@ -201,7 +201,7 @@ export default function HireAgentPage() {
 
           {/* Step 2: Role & Budget */}
           {step === 2 && (
-            <DashboardCard title="ROLE & BUDGET">
+            <DashboardCard title="ROLE & BUDGET" frost="blue">
               <div className="space-y-4">
                 <div>
                   <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-2 block">Role *</label>
@@ -252,7 +252,7 @@ export default function HireAgentPage() {
 
           {/* Step 3: Capabilities */}
           {step === 3 && (
-            <DashboardCard title="CAPABILITIES">
+            <DashboardCard title="CAPABILITIES" frost="blue">
               <div className="space-y-4">
                 <div>
                   <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-2 block">
@@ -295,7 +295,7 @@ export default function HireAgentPage() {
 
           {/* Step 4: Confirm */}
           {step === 4 && (
-            <DashboardCard title="CONFIRM AGENT">
+            <DashboardCard title="CONFIRM AGENT" frost="blue">
               <div className="space-y-4">
                 <div className="bg-accent/15 rounded-xl p-4 space-y-3">
                   <div className="flex items-center justify-between">

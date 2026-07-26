@@ -69,7 +69,7 @@ export default function WebhooksPage() {
     >
       {/* Webhook URL + Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        <DashboardCard title="WEBHOOK ENDPOINT" className="lg:col-span-2">
+        <DashboardCard title="WEBHOOK ENDPOINT" frost="blue" className="lg:col-span-2">
           <div className="flex items-center gap-2">
             <code className="flex-1 text-xs bg-accent/20 rounded px-3 py-2 truncate font-mono">
               {webhookUrl || "Loading..."}
@@ -85,7 +85,7 @@ export default function WebhooksPage() {
           </div>
         </DashboardCard>
 
-        <DashboardCard title="STATISTICS">
+        <DashboardCard title="STATISTICS" frost="blue">
           {stats ? (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
@@ -170,7 +170,7 @@ export default function WebhooksPage() {
 
       {/* Quick Test */}
       <div className="mt-6">
-        <DashboardCard title="TEST WEBHOOK">
+        <DashboardCard title="TEST WEBHOOK" frost="blue">
           <p className="text-xs text-muted-foreground mb-3">
             Send a test push event to verify your webhook endpoint is working.
           </p>

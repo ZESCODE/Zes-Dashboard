@@ -66,25 +66,25 @@ export default function CloudPage() {
     >
       {/* Status Row */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <Cloud className="size-3.5" /> Last Backup
           </div>
           <div className="text-lg font-display font-bold">{syncStatus?.lastSync || "Never"}</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <HardDrive className="size-3.5" /> Total Backups
           </div>
           <div className="text-lg font-display font-bold">{syncStatus?.totalBackups || 0}</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <Upload className="size-3.5" /> Backup Size
           </div>
           <div className="text-lg font-display font-bold">{totalSizeKB.toFixed(0)} KB</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <CheckCircle2 className="size-3.5" /> Status
           </div>
@@ -96,7 +96,7 @@ export default function CloudPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Backup Action */}
-        <DashboardCard title="BACKUP NOW">
+        <DashboardCard title="BACKUP NOW" frost="blue">
           <p className="text-xs text-muted-foreground mb-4">
             Creates a timestamped snapshot of all ZES config files including company roster, task queue, roadmap, and strategy.
           </p>
@@ -124,7 +124,7 @@ export default function CloudPage() {
         </DashboardCard>
 
         {/* Files */}
-        <DashboardCard title="SYNCED FILES">
+        <DashboardCard title="SYNCED FILES" frost="blue">
           <div className="space-y-2">
             {syncStatus?.files?.map((f: any) => (
               <div key={f.file} className="flex items-center justify-between text-xs">
@@ -141,14 +141,14 @@ export default function CloudPage() {
         </DashboardCard>
 
         {/* Info */}
-        <DashboardCard title="ABOUT">
+        <DashboardCard title="ABOUT" frost="blue">
           <div className="space-y-2 text-xs text-muted-foreground">
             <p>Backups are stored locally in your Hermes config directory.</p>
             <p>Each backup is a full snapshot — no incremental diffs.</p>
             <p>Oldest backups are auto-pruned (max 20).</p>
             <p className="pt-2 text-[10px]">
               Backup location:
-              <code className="block mt-1 bg-accent/20 rounded px-2 py-1 font-mono text-[9px]">
+              <code className="block mt-1 glass rounded px-2 py-1 font-mono text-[9px]">
                 {syncStatus?.backupDir || "~/.hermes/backups/"}
               </code>
             </p>
@@ -158,7 +158,7 @@ export default function CloudPage() {
 
       {/* Recent Backups */}
       <div className="mt-6">
-        <DashboardCard
+        <DashboardCard frost="blue"
           title="BACKUP HISTORY"
           addon={
             <Button variant="outline" size="sm" className="h-6 text-[9px]" onClick={fetchCloud}>
@@ -169,7 +169,7 @@ export default function CloudPage() {
           {loading ? (
             <div className="space-y-2 p-4">
               {[1,2,3].map(i => (
-                <div key={i} className="h-12 rounded-md bg-accent/5 animate-pulse" />
+                <div key={i} className="h-12 rounded-md bg-white/5 animate-pulse" />
               ))}
             </div>
           ) : backups.length === 0 ? (
@@ -186,9 +186,9 @@ export default function CloudPage() {
           ) : (
             <div className="space-y-1 max-h-[300px] overflow-y-auto">
               {backups.map((b: any, i: number) => (
-                <div key={b.id || i} className="flex items-center justify-between p-2.5 rounded-md hover:bg-accent/20 transition-colors">
+                <div key={b.id || i} className="flex items-center justify-between p-2.5 rounded-md hover:bg-white/10 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="size-8 rounded-md bg-accent/20 flex items-center justify-center">
+                    <div className="size-8 rounded-md glass flex items-center justify-center">
                       <HardDrive className="size-4 text-muted-foreground" />
                     </div>
                     <div>

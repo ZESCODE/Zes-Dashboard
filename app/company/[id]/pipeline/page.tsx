@@ -461,7 +461,7 @@ export default function CompanyPipelinePage() {
 
       {/* ──────────── SETUP TAB ──────────── */}
       {activeTab === "setup" && (
-        <DashboardCard title="Team Roles — Media Agency">
+        <DashboardCard title="Team Roles — Media Agency" frost="blue">
           <p className="text-[10px] text-muted-foreground mb-4">
             Define the 4 roles for this project. CEO is you (human-in-the-loop).
             Assign names and the pipeline will route tasks through each stage automatically.

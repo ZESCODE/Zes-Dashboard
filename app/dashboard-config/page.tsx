@@ -94,15 +94,15 @@ export default function DashboardConfigPage() {
     >
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3 mb-6">
-        <div className="bg-accent/20 rounded-lg p-3">
+        <div className="glass rounded-xl p-4">
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Total Pages</div>
           <div className="text-lg font-display font-bold">{pages.length}</div>
         </div>
-        <div className="bg-accent/20 rounded-lg p-3">
+        <div className="glass rounded-xl p-4">
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Visible</div>
           <div className="text-lg font-display font-bold text-emerald-400">{visibleCount}</div>
         </div>
-        <div className="bg-accent/20 rounded-lg p-3">
+        <div className="glass rounded-xl p-4">
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Hidden</div>
           <div className="text-lg font-display font-bold text-muted-foreground">{hiddenCount}</div>
         </div>
@@ -127,7 +127,7 @@ export default function DashboardConfigPage() {
                   className={cn(
                     "flex items-center gap-2 rounded-lg border px-3 py-2.5 text-xs transition-all text-left",
                     page.visible
-                      ? "border-border/30 bg-accent/10 hover:border-primary/40 hover:bg-accent/20"
+                      ? "border-border/30 bg-white/5 hover:border-primary/40 hover:bg-white/10"
                       : "border-dashed border-muted-foreground/20 bg-transparent opacity-50 hover:opacity-80"
                   )}
                 >

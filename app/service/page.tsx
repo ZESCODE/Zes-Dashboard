@@ -97,10 +97,10 @@ export default function ServicePage() {
               <div
                 key={svc.name}
                 className={cn(
-                  "bg-card border rounded-xl p-3 flex justify-between items-center transition-all",
+                  "rounded-xl p-3 flex justify-between items-center transition-all",
                   isRunning
-                    ? "border-border/50 hover:border-success/30"
-                    : "border-border/30 hover:border-border/60"
+                    ? "glass-frost-green"
+                    : "glass-frost-red"
                 )}
               >
                 <div className="flex flex-col gap-0.5 min-w-0">
@@ -117,8 +117,8 @@ export default function ServicePage() {
                     className={cn(
                       "text-[10px] font-semibold px-2 py-0.5 rounded-full",
                       isRunning
-                        ? "text-green-400 bg-green-500/15 border border-green-500/30"
-                        : "text-red-400 bg-red-500/15 border border-red-500/30"
+                        ? "text-emerald-400 glass-badge"
+                        : "text-red-400 glass-badge"
                     )}
                   >
                     {isRunning ? "● Run" : "▼ Down"}
@@ -139,7 +139,7 @@ export default function ServicePage() {
         </div>
       )}
 
-      <DashboardCard title="GUARD DOG PROTOCOL" intent="default">
+      <DashboardCard title="GUARD DOG PROTOCOL" frost="blue">
         <div className="space-y-3">
           {[
             { label: "AUTO-RESTART", value: "ENABLED" },
@@ -147,7 +147,7 @@ export default function ServicePage() {
             { label: "RUNNING", value: `${running}/${services.length}` },
             { label: "NOTIFICATIONS", value: "ON FAILURE" },
           ].map((item) => (
-            <div key={item.label} className="flex items-center justify-between bg-accent/20 rounded px-3 py-2">
+            <div key={item.label} className="flex items-center justify-between glass rounded px-3 py-2">
               <span className="text-sm text-muted-foreground">{item.label}</span>
               <Badge variant="outline">{item.value}</Badge>
             </div>

@@ -370,7 +370,7 @@ export default function MemoryGraphPage() {
 
         {/* Side panel */}
         {selected ? (
-          <div className="w-full lg:w-72 shrink-0 rounded-xl border border-border/40 bg-card p-4 max-h-[450px] overflow-y-auto">
+          <div className="w-full lg:w-72 shrink-0 rounded-xl border border-border/40 glass p-4 max-h-[450px] overflow-y-auto">
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Selected</span>
               <button onClick={() => setSelectedId(null)} className="text-[10px] text-muted-foreground/50 hover:text-foreground">✕</button>
@@ -425,7 +425,7 @@ export default function MemoryGraphPage() {
             )}
           </div>
         ) : (
-          <div className="w-full lg:w-72 shrink-0 rounded-xl border border-border/40 bg-card p-4 max-h-[450px]">
+          <div className="w-full lg:w-72 shrink-0 rounded-xl border border-border/40 glass p-4 max-h-[450px]">
             <div className="flex items-center gap-2 mb-3">
               <Network className="size-4 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Legend</span>

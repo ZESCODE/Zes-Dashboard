@@ -67,7 +67,7 @@ const data = {
     {
       title: "Tools",
       items: [
-        { title: "Overview", url: "/", icon: BracketsIcon, isActive: false } as NavItem,
+        { title: "Overview", url: "/system", icon: BracketsIcon, isActive: false } as NavItem,
         { title: "Laboratory", url: "/laboratory", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Showcase", url: "/showcase", icon: Sparkles, isActive: false } as NavItem,
         { title: "Dashboard Config", url: "/dashboard-config", icon: GearIcon, isActive: false } as NavItem,

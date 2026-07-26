@@ -143,7 +143,7 @@ export default function ReportsPage() {
 
           {/* Alerts Section */}
           {(report.budget_alerts && report.budget_alerts.length > 0) && (
-            <DashboardCard title="BUDGET ALERTS" intent="warning" className="mb-6">
+            <DashboardCard title="BUDGET ALERTS" frost="orange" className="mb-6">
               <div className="space-y-2">
                 {report.budget_alerts.map((alert: any, i: number) => (
                   <div key={i} className="flex items-start gap-2 bg-warning/5 rounded-lg p-3">
@@ -160,7 +160,7 @@ export default function ReportsPage() {
 
           {/* Stale Epics */}
           {(report.stale_epics && report.stale_epics.length > 0) && (
-            <DashboardCard title="STALE EPICS" intent="warning" className="mb-6">
+            <DashboardCard title="STALE EPICS" frost="orange" className="mb-6">
               <div className="space-y-2">
                 {report.stale_epics.map((epic: any, i: number) => (
                   <div key={i} className="flex items-center justify-between bg-accent/20 rounded-lg p-3">
@@ -178,7 +178,7 @@ export default function ReportsPage() {
           )}
 
           {/* Daemon Log */}
-          <DashboardCard title="DAEMON LOG" className="mb-6">
+          <DashboardCard title="DAEMON LOG" frost="blue" className="mb-6">
             <div className="bg-black/80 rounded-lg p-4 max-h-[200px] overflow-y-auto">
               {logTail.length > 0 ? (
                 <pre className="text-[10px] font-mono text-green-400/80 whitespace-pre-wrap leading-relaxed">

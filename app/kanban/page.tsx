@@ -62,25 +62,25 @@ export default function KanbanPage() {
     >
       {/* Local Task Summary */}
       <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="bg-accent/15 rounded-lg p-3 text-center">
+        <div className="glass rounded-xl p-3 text-center">
           <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-1">
             <Circle className="size-3" /> Pending
           </div>
           <div className="text-xl font-display font-bold">{pendingTasks.length}</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-3 text-center">
+        <div className="glass rounded-xl p-3 text-center">
           <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-1">
             <Play className="size-3 text-primary" /> Running
           </div>
           <div className="text-xl font-display font-bold">{runningTasks.length}</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-3 text-center">
+        <div className="glass rounded-xl p-3 text-center">
           <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-1">
             <CheckCircle2 className="size-3 text-success" /> Done
           </div>
           <div className="text-xl font-display font-bold">{doneTasks.length}</div>
         </div>
-        <div className="bg-accent/15 rounded-lg p-3 text-center">
+        <div className="glass rounded-xl p-3 text-center">
           <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mb-1">
             <XCircle className="size-3 text-destructive" /> Failed
           </div>
@@ -95,7 +95,7 @@ export default function KanbanPage() {
             ? "Drag tasks between columns to update status. Connected to task dispatch API."
             : "List view of all tasks."}
         </p>
-        <div className="flex bg-accent/30 rounded-lg p-0.5">
+        <div className="flex glass rounded-xl p-0.5">
           <button
             onClick={() => setViewMode("board")}
             className={cn(

@@ -65,7 +65,7 @@ export default function ProcessesPage() {
           { label: "Total CPU", value: `${totalCpu}%`, icon: Cpu, color: "text-emerald-400" },
           { label: "Total Mem", value: `${totalMem}%`, icon: HardDrive, color: "text-amber-400" },
         ].map((s) => (
-          <div key={s.label} className="bg-accent/20 rounded-lg p-3 flex items-center gap-3">
+          <div key={s.label} className="glass rounded-xl p-3 flex items-center gap-3">
             <s.icon className={cn("h-5 w-5", s.color)} />
             <div>
               <div className="text-xs text-muted-foreground">{s.label}</div>
@@ -105,7 +105,7 @@ export default function ProcessesPage() {
       </div>
 
       {/* Process List */}
-      <DashboardCard title="PROCESS TABLE" intent="default">
+      <DashboardCard title="PROCESS TABLE" frost="blue">
         {loading && processes.length === 0 ? (
           <div className="text-center py-8 text-sm text-muted-foreground">Loading processes...</div>
         ) : filtered.length === 0 ? (

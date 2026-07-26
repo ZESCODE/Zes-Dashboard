@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bullet } from "@/components/ui/bullet";
 import { cn } from "@/lib/utils";
+import { frostMap, type FrostColor } from "@/lib/frost-tokens";
 
 interface DashboardStatProps {
   label: string;
@@ -13,7 +14,7 @@ interface DashboardStatProps {
   icon: React.ElementType;
   intent?: "positive" | "negative" | "neutral";
   direction?: "up" | "down";
-  frost?: "green" | "blue" | "orange" | "red";
+  frost?: FrostColor;
 }
 
 export default function DashboardStat({
@@ -27,10 +28,10 @@ export default function DashboardStat({
   frost,
 }: DashboardStatProps) {
   const Icon = icon;
+  const tokens = frost ? frostMap[frost] : null;
 
   // Extract prefix, numeric value, and suffix from the value string
   const parseValue = (val: string) => {
-    // Match pattern: optional prefix + number + optional suffix
     const match = val.match(/^([^\d.-]*)([+-]?\d*\.?\d+)([^\d]*)$/);
 
     if (match) {
@@ -60,18 +61,20 @@ export default function DashboardStat({
   const { prefix, numericValue, suffix, isNumeric } = parseValue(value);
 
   return (
-    <Card className={cn("relative overflow-hidden", frost && `glass-frost-${frost}`)}>
+    <Card className={cn("relative overflow-hidden", tokens?.cardClass)}>
       <CardHeader className="flex items-center justify-between">
-        <CardTitle className="flex items-center gap-2.5">
+        <CardTitle className={cn("flex items-center gap-2.5", tokens?.accent)}>
           <Bullet />
           {label}
         </CardTitle>
-        <Icon className="size-4 text-muted-foreground" />
+        <div className={cn("size-4", tokens?.accent)}>
+          <Icon className="size-4" />
+        </div>
       </CardHeader>
 
-      <CardContent className="bg-accent flex-1 pt-2 md:pt-6 overflow-clip relative">
+      <CardContent className="flex-1 pt-2 md:pt-6 overflow-clip relative">
         <div className="flex items-center">
-          <span className="text-4xl md:text-5xl font-display">
+          <span className={cn("text-4xl md:text-5xl font-display", tokens?.accent)}>
             {isNumeric ? (
               <NumberFlow
                 value={numericValue}
@@ -144,8 +147,8 @@ interface ArrowProps {
 }
 
 const Arrow = ({ direction, index }: ArrowProps) => {
-  const staggerDelay = index * 0.15; // Faster stagger
-  const phaseDelay = (index % 3) * 0.8; // Different phase groups
+  const staggerDelay = index * 0.15;
+  const phaseDelay = (index % 3) * 0.8;
 
   return (
     <span
@@ -158,7 +161,6 @@ const Arrow = ({ direction, index }: ArrowProps) => {
         "text-center text-5xl size-14 font-display leading-none block",
         "transition-all duration-700 ease-out",
         "animate-marquee-pulse",
-
         "will-change-transform"
       )}
     >

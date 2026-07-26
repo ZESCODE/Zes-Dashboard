@@ -54,16 +54,16 @@ export default function SystemPage() {
       {/* Quick stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "CPU", value: `${cpuPct}%`, intent: cpuPct > 80 ? "negative" : cpuPct > 50 ? "neutral" : "positive" },
-          { label: "MEMORY", value: `${memPercent}%`, intent: memPercent > 80 ? "negative" : memPercent > 60 ? "neutral" : "positive" },
-          { label: "DISK", value: `${diskPercent}%`, intent: diskPercent > 85 ? "negative" : diskPercent > 70 ? "neutral" : "positive" },
-          { label: "LOAD", value: loadArr[0]?.toFixed(1) ?? "0.0", intent: loadArr[0] > cores ? "negative" : "neutral" },
+          { label: "CPU", value: `${cpuPct}%`, frost: cpuPct > 80 ? "red" : cpuPct > 50 ? "orange" : "green" },
+          { label: "MEMORY", value: `${memPercent}%`, frost: memPercent > 80 ? "red" : memPercent > 60 ? "orange" : "green" },
+          { label: "DISK", value: `${diskPercent}%`, frost: diskPercent > 85 ? "red" : diskPercent > 70 ? "orange" : "green" },
+          { label: "LOAD", value: loadArr[0]?.toFixed(1) ?? "0.0", frost: loadArr[0] > cores ? "red" : "green" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-accent/20 rounded-lg p-4">
+          <div key={stat.label} className={cn("rounded-xl p-4", `glass-frost-${stat.frost}`)}>
             <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{stat.label}</div>
             <div className={cn(
               "text-2xl font-display",
-              stat.intent === "negative" ? "text-destructive" : stat.intent === "neutral" ? "text-warning" : "text-success"
+              stat.frost === "red" ? "text-red-400" : stat.frost === "orange" ? "text-orange-400" : "text-emerald-400"
             )}>
               {stat.value}
             </div>
@@ -72,15 +72,15 @@ export default function SystemPage() {
       </div>
 
       {/* Proxy & Network Status Card */}
-      <DashboardCard title="NETWORK & PROXY" intent="default" className="mb-6">
+      <DashboardCard title="NETWORK & PROXY" frost="blue" className="mb-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* Tor Exit IP */}
-          <div className="bg-accent/30 rounded p-3">
+          <div className={torOk ? "glass-frost-green rounded-xl p-3" : "glass-frost-red rounded-xl p-3"}>
             <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Tor IP</div>
             <div className="font-mono text-sm font-bold flex items-center gap-2">
               <span className={cn(
                 "inline-block w-2 h-2 rounded-full",
-                torOk ? "bg-success animate-pulse" : "bg-destructive"
+                torOk ? "bg-emerald-500 animate-pulse" : "bg-red-500"
               )} />
               {exitIp ?? "—"}
             </div>
@@ -90,12 +90,12 @@ export default function SystemPage() {
           </div>
 
           {/* Proxy Status */}
-          <div className="bg-accent/30 rounded p-3">
+          <div className={torOk ? "glass-frost-green rounded-xl p-3" : "glass-frost-red rounded-xl p-3"}>
             <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Proxy</div>
             <div className="font-mono text-sm font-bold flex items-center gap-2">
               <span className={cn(
                 "inline-block w-2 h-2 rounded-full",
-                torOk ? "bg-success" : "bg-destructive"
+                torOk ? "bg-emerald-500" : "bg-red-500"
               )} />
               {torOk ? "Tor HTTP :8118" : "Offline"}
             </div>
@@ -151,14 +151,14 @@ export default function SystemPage() {
 
       {/* Resource bars */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <DashboardCard title="MEMORY" intent="default">
+        <DashboardCard title="MEMORY" frost={memPercent > 80 ? "red" : memPercent > 60 ? "orange" : "green"}>
           <div className="space-y-4">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Used</span>
               <span className="font-mono font-bold">{sysInfo?.memory.used ?? "—"}</span>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${memPercent}%` }} />
+              <div className={cn("h-full rounded-full transition-all duration-500", memPercent > 80 ? "bg-red-500" : memPercent > 60 ? "bg-orange-500" : "bg-emerald-500")} style={{ width: `${memPercent}%` }} />
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Total</span>
@@ -167,14 +167,14 @@ export default function SystemPage() {
           </div>
         </DashboardCard>
 
-        <DashboardCard title="DISK" intent="default">
+        <DashboardCard title="DISK" frost={diskPercent > 85 ? "red" : diskPercent > 70 ? "orange" : "green"}>
           <div className="space-y-4">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Used</span>
               <span className="font-mono font-bold">{sysInfo?.disk.used ?? "—"}</span>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-warning rounded-full transition-all duration-500" style={{ width: `${diskPercent}%` }} />
+              <div className={cn("h-full rounded-full transition-all duration-500", diskPercent > 85 ? "bg-red-500" : diskPercent > 70 ? "bg-orange-500" : "bg-emerald-500")} style={{ width: `${diskPercent}%` }} />
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Total</span>
@@ -185,7 +185,7 @@ export default function SystemPage() {
       </div>
 
       {/* System Info Grid */}
-      <DashboardCard title="SYSTEM INFO" intent="default">
+      <DashboardCard title="SYSTEM INFO" frost="blue">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { label: "Hostname", value: sysInfo?.hostname ?? "—" },
@@ -203,9 +203,9 @@ export default function SystemPage() {
             { label: "Git", value: sysInfo?.runtimes?.git?.replace("git version ", "") ?? "—" },
             { label: "NPM", value: sysInfo?.runtimes?.npm ?? "—" },
           ].map((item) => (
-            <div key={item.label} className="bg-accent/30 rounded p-3">
+            <div key={item.label} className="glass rounded-xl p-3">
               <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{item.label}</div>
-              <div className="font-mono text-sm font-bold truncate">{item.value}</div>
+              <div className="font-mono text-sm font-bold truncate text-blue-400">{item.value}</div>
               {(item as any).sub && <div className="text-[9px] text-muted-foreground">{(item as any).sub}</div>}
             </div>
           ))}

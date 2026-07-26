@@ -258,15 +258,15 @@ export default function OrchestratorPage() {
     >
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <DashboardStat label="PENDING" value={String(pendingTasks.length)} description="IN QUEUE" icon={Circle} intent={pendingTasks.length > 0 ? "warning" : "positive"} direction={pendingTasks.length > 0 ? "up" : "down"} />
-        <DashboardStat label="RUNNING" value={String(runningTasks.length)} description="ACTIVE" icon={Play} intent={runningTasks.length > 0 ? "positive" : "negative"} direction={runningTasks.length > 0 ? "up" : "down"} />
-        <DashboardStat label="COMPLETED" value={String(doneTasks.length)} description="DONE" icon={CheckCircle2} intent="positive" direction="up" />
-        <DashboardStat label="FAILED" value={String(failedTasks.length)} description="ERRORS" icon={XCircle} intent={failedTasks.length > 0 ? "negative" : "positive"} direction={failedTasks.length > 0 ? "up" : "down"} />
-        <DashboardStat label="TOTAL" value={String(tasks.length)} description="ALL TIME" icon={Database} intent="positive" direction="up" />
+        <DashboardStat label="PENDING" value={String(pendingTasks.length)} description="IN QUEUE" icon={Circle} intent={pendingTasks.length > 0 ? "warning" : "positive"} frost={pendingTasks.length > 0 ? "orange" : "blue"} direction={pendingTasks.length > 0 ? "up" : "down"} />
+        <DashboardStat label="RUNNING" value={String(runningTasks.length)} description="ACTIVE" icon={Play} intent={runningTasks.length > 0 ? "positive" : "negative"} frost={runningTasks.length > 0 ? "green" : "red"} direction={runningTasks.length > 0 ? "up" : "down"} />
+        <DashboardStat label="COMPLETED" value={String(doneTasks.length)} description="DONE" icon={CheckCircle2} intent="positive" frost="green" direction="up" />
+        <DashboardStat label="FAILED" value={String(failedTasks.length)} description="ERRORS" icon={XCircle} intent={failedTasks.length > 0 ? "negative" : "positive"} frost={failedTasks.length > 0 ? "red" : "green"} direction={failedTasks.length > 0 ? "up" : "down"} />
+        <DashboardStat label="TOTAL" value={String(tasks.length)} description="ALL TIME" icon={Database} intent="positive" frost="blue" direction="up" />
       </div>
 
       {/* Create Task */}
-      <DashboardCard title="QUICK DISPATCH" className="mb-6">
+      <DashboardCard title="QUICK DISPATCH" frost="blue" className="mb-6">
         <CreateTaskForm onCreated={fetchTasks} />
       </DashboardCard>
 
@@ -275,7 +275,7 @@ export default function OrchestratorPage() {
         {/* Pending */}
         <DashboardCard
           title="PENDING"
-          intent={pendingTasks.length > 0 ? "warning" : "default"}
+          frost={pendingTasks.length > 0 ? "orange" : "blue"}
           addon={<Badge variant={pendingTasks.length > 0 ? "default" : "secondary"} className="text-[9px]">{pendingTasks.length}</Badge>}
         >
           <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
@@ -301,7 +301,7 @@ export default function OrchestratorPage() {
         {/* Running */}
         <DashboardCard
           title="RUNNING"
-          intent={runningTasks.length > 0 ? "success" : "default"}
+          frost={runningTasks.length > 0 ? "green" : "blue"}
           addon={<Badge variant={runningTasks.length > 0 ? "default" : "secondary"} className="text-[9px]">{runningTasks.length}</Badge>}
         >
           <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
@@ -314,7 +314,7 @@ export default function OrchestratorPage() {
         </DashboardCard>
 
         {/* Completed */}
-        <DashboardCard
+        <DashboardCard frost="blue"
           title="COMPLETED"
           addon={<Badge variant="secondary" className="text-[9px]">{doneTasks.length + failedTasks.length}</Badge>}
         >

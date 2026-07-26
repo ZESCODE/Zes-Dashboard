@@ -234,7 +234,7 @@ export default function BudgetPage() {
           {tab === "overview" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Goals */}
-              <DashboardCard title="GOALS BUDGET">
+              <DashboardCard title="GOALS BUDGET" frost="blue">
                 {b.goals && b.goals.length > 0 ? (
                   <div className="space-y-3">
                     {b.goals.map((goal) => (
@@ -262,7 +262,7 @@ export default function BudgetPage() {
               </DashboardCard>
 
               {/* Agent Budgets */}
-              <DashboardCard title="AGENT ALLOCATIONS">
+              <DashboardCard title="AGENT ALLOCATIONS" frost="blue">
                 {agentBudgets.length > 0 ? (
                   <div className="space-y-2">
                     {agentBudgets.map((agent) => {

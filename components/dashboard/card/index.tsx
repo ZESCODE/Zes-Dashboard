@@ -2,13 +2,14 @@ import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Bullet } from "@/components/ui/bullet";
 import { cn } from "@/lib/utils";
+import { frostMap, type FrostColor } from "@/lib/frost-tokens";
 
 interface DashboardCardProps
   extends Omit<React.ComponentProps<typeof Card>, "title"> {
   title: string;
   addon?: React.ReactNode;
   intent?: "default" | "success";
-  frost?: "green" | "blue" | "orange" | "red";
+  frost?: FrostColor;
   children: React.ReactNode;
 }
 
@@ -21,10 +22,18 @@ export default function DashboardCard({
   className,
   ...props
 }: DashboardCardProps) {
+  const tokens = frost ? frostMap[frost] : null;
+
   return (
-    <Card className={cn(className, frost && `glass-frost-${frost} border-${frost === "green" ? "emerald" : frost === "blue" ? "blue" : frost === "orange" ? "orange" : "red"}-500/20`)} {...props}>
+    <Card
+      className={cn(
+        className,
+        tokens?.cardClass
+      )}
+      {...props}
+    >
       <CardHeader className="flex items-center justify-between">
-        <CardTitle className="flex items-center gap-2.5">
+        <CardTitle className={cn("flex items-center gap-2.5", tokens?.accent)}>
           <Bullet variant={intent} />
           {title}
         </CardTitle>

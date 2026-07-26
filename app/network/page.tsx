@@ -69,7 +69,7 @@ export default function NetworkPage() {
       </div>
 
       {/* Interface List */}
-      <DashboardCard
+      <DashboardCard frost="blue"
         title="NETWORK INTERFACES"
         intent="default"
         addon={
@@ -116,7 +116,7 @@ export default function NetworkPage() {
       </DashboardCard>
 
       {/* Port Services Info */}
-      <DashboardCard title="SERVICE PORTS" intent="default" className="mt-4">
+      <DashboardCard frost="blue" title="SERVICE PORTS" intent="default" className="mt-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {[
             { port: 5002, service: "Flask API" },

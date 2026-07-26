@@ -160,7 +160,7 @@ export default function ActivityPage() {
             return (
               <div
                 key={e.id}
-                className="flex items-start gap-3 bg-accent/5 rounded-lg p-3 border border-border/30 hover:border-primary/20 transition-colors cursor-pointer"
+                className="flex items-start gap-3 glass rounded-xl p-3 border border-border/30 hover:border-primary/20 transition-colors cursor-pointer"
                 onClick={() => setShowPayload(showPayload === e.id ? null : e.id)}
               >
                 <div className={cn("size-8 rounded-full flex items-center justify-center shrink-0", SOURCE_COLORS[e.source] || "bg-gray-500/20 text-gray-400")}>
@@ -190,7 +190,7 @@ export default function ActivityPage() {
                     </div>
                   )}
                   {showPayload === e.id && (
-                    <pre className="mt-2 text-[10px] font-mono bg-accent/20 rounded p-2 overflow-x-auto">
+                    <pre className="mt-2 text-[10px] font-mono glass rounded-xl p-3 overflow-x-auto">
                       {JSON.stringify(e, null, 2)}
                     </pre>
                   )}
@@ -203,14 +203,14 @@ export default function ActivityPage() {
 
       {/* Source breakdown */}
       {stats && Object.keys(stats.sources).length > 0 && (
-        <DashboardCard title="Source Breakdown" className="mt-4">
+        <DashboardCard title="Source Breakdown" frost="blue" className="mt-4">
           <div className="space-y-2">
             {Object.entries(stats.sources)
               .sort(([, a], [, b]) => b - a)
               .map(([src, count]) => (
                 <div key={src} className="flex items-center gap-2">
                   <span className="text-xs font-semibold w-24 capitalize">{src}</span>
-                  <div className="flex-1 h-4 bg-accent/20 rounded-full overflow-hidden">
+                  <div className="flex-1 h-4 bg-white/10 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all"
                       style={{
@@ -237,7 +237,7 @@ function StatCard({ icon: Icon, label, value, color }: {
   icon: any; label: string; value: string; color: string;
 }) {
   return (
-    <div className="bg-accent/20 rounded-lg p-3 flex items-center gap-2">
+    <div className="glass rounded-xl p-3 flex items-center gap-2">
       <Icon className={cn("size-5 shrink-0", color)} />
       <div>
         <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{label}</div>

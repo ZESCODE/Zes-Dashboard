@@ -99,7 +99,7 @@ export default function TopologyPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Filter services..."
-          className="w-full rounded-lg border border-border bg-accent/20 pl-9 pr-3 py-2 text-sm outline-none focus:border-primary transition-colors"
+          className="w-full rounded-lg border border-border bg-white/5 pl-9 pr-3 py-2 text-sm outline-none focus:border-primary transition-colors"
         />
       </div>
 
@@ -134,7 +134,7 @@ export default function TopologyPage() {
                           ? "border-emerald-500/30 bg-emerald-500/5"
                           : alive === false
                           ? "border-red-500/30 bg-red-500/5"
-                          : "border-border/30 bg-accent/5",
+                          : "border-border/30 bg-white/5",
                         "hover:scale-[1.02] cursor-default"
                       )}
                     >

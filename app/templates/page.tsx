@@ -233,7 +233,7 @@ export default function TemplatesPage() {
 
       {/* Create form */}
       {showCreate && (
-        <DashboardCard title="Create Template" className="mb-4">
+        <DashboardCard title="Create Template" frost="blue" className="mb-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
             <div>
               <label className="text-[10px] font-semibold text-muted-foreground">Name *</label>
@@ -324,7 +324,7 @@ export default function TemplatesPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {templates.map(t => (
-            <div key={t.id} className="bg-accent/5 rounded-lg border border-border/40 p-4 hover:border-primary/30 transition-colors">
+            <div key={t.id} className="glass rounded-xl border border-border/40 p-4 hover:border-primary/30 transition-colors">
               {/* Header */}
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -348,7 +348,7 @@ export default function TemplatesPage() {
               {t.description && (
                 <p className="text-[10px] text-muted-foreground mb-2">{t.description}</p>
               )}
-              <div className="text-[10px] text-muted-foreground/70 font-mono bg-accent/10 rounded p-2 mb-3 line-clamp-3">
+              <div className="text-[10px] text-muted-foreground/70 font-mono glass rounded-xl p-3 mb-3 line-clamp-3">
                 {t.content.slice(0, 200)}{t.content.length > 200 ? "..." : ""}
               </div>
 
@@ -424,7 +424,7 @@ function StatCard({ icon: Icon, label, value, color, sub }: {
   icon: any; label: string; value: string; color: string; sub?: string;
 }) {
   return (
-    <div className="bg-accent/20 rounded-lg p-3 flex items-center gap-2">
+    <div className="glass rounded-xl p-3 flex items-center gap-2">
       <Icon className={cn("size-5 shrink-0", color)} />
       <div>
         <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{label}</div>

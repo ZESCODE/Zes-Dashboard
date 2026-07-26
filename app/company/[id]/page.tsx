@@ -259,7 +259,7 @@ export default function CompanyDetailPage() {
           {/* Capabilities & Policies */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Agent Capabilities */}
-            <DashboardCard title="AGENT CAPABILITIES">
+            <DashboardCard title="AGENT CAPABILITIES" frost="blue">
               {company.agents && company.agents.length > 0 ? (
                 <div className="space-y-3">
                   {company.agents.map((agent) => (
@@ -284,7 +284,7 @@ export default function CompanyDetailPage() {
             </DashboardCard>
 
             {/* Quick Actions */}
-            <DashboardCard title="QUICK ACTIONS">
+            <DashboardCard title="QUICK ACTIONS" frost="blue">
               <div className="space-y-3">
                 <Link href={`/org-chart?company=${companyId}`}>
                   <Button variant="outline" className="w-full justify-start text-xs h-9">

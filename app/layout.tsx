@@ -14,6 +14,7 @@ import { NotificationBell } from "@/components/dashboard/notification-bell";
 import { MobileChat } from "@/components/chat/mobile-chat";
 import Chat from "@/components/chat";
 import CommandPaletteWrapper from "@/components/dashboard/command-palette-wrapper";
+import FrostInjector from "@/components/dashboard/frost-injector";
 
 const mockData = mockDataJson as MockData;
 
@@ -60,7 +61,7 @@ export default function RootLayout({
         className={`${rebelGrotesk.variable} ${robotoMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <V0Provider isV0={isV0}>
+        <FrostInjector /><V0Provider isV0={isV0}>
           <SidebarProvider>
             {/* Mobile Header - only visible on mobile */}
             <MobileHeader mockData={mockData} />

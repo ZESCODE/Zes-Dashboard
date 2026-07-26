@@ -155,7 +155,7 @@ export default function AgentDetailPage() {
 
           {/* Capabilities + Tasks */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <DashboardCard title="CAPABILITIES">
+            <DashboardCard title="CAPABILITIES" frost="blue">
               {agent.capabilities && agent.capabilities.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {agent.capabilities.map((cap) => (
@@ -169,7 +169,7 @@ export default function AgentDetailPage() {
               )}
             </DashboardCard>
 
-            <DashboardCard title="RECENT TASKS">
+            <DashboardCard title="RECENT TASKS" frost="blue">
               {tasks.length > 0 ? (
                 <div className="space-y-2">
                   {tasks.slice(0, 10).map((task) => (
@@ -196,7 +196,7 @@ export default function AgentDetailPage() {
           </div>
 
           {/* Raw Data */}
-          <DashboardCard title="AGENT DATA">
+          <DashboardCard title="AGENT DATA" frost="blue">
             <pre className="text-[10px] font-mono text-muted-foreground overflow-x-auto">
               {JSON.stringify(agent, null, 2)}
             </pre>

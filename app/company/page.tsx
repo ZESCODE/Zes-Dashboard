@@ -124,7 +124,7 @@ function OrgTreeNode({ node, depth = 0 }: { node: Agent; depth?: number }) {
   return (
     <div>
       <div
-        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent/50 cursor-pointer"
+        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors hover:bg-white/10 cursor-pointer"
         style={{ paddingLeft: (depth * 20 + 12) + "px" }}
         onClick={() => hasReports && setExpanded(!expanded)}
       >
@@ -250,6 +250,7 @@ export default function CompanyPage() {
               description={(s?.running ?? 0) + " running · " + (s?.active ?? 0) + " active"}
               icon={Users}
               intent={s && s.running > 0 ? "positive" : "negative"}
+              frost={s && s.running > 0 ? "green" : "blue"}
               direction={s && s.running === s?.totalAgents ? "up" : "neutral"}
             />
             <DashboardStat
@@ -260,6 +261,7 @@ export default function CompanyPage() {
                 : "No budget set"}
               icon={DollarSign}
               intent={(b?.overview?.overallUtilizationPercent ?? 0) >= 80 ? "negative" : "positive"}
+              frost={(b?.overview?.overallUtilizationPercent ?? 0) >= 80 ? "red" : (b?.overview?.overallUtilizationPercent ?? 0) >= 50 ? "orange" : "green"}
               direction={(b?.overview?.overallUtilizationPercent ?? 0) > 50 ? "down" : "up"}
             />
             <DashboardStat
@@ -268,6 +270,7 @@ export default function CompanyPage() {
               description={(b?.goals?.filter((g) => g.status === "on_track" || g.status === "completed").length ?? 0) + " on track"}
               icon={Target}
               intent={b && b.goals.length > 0 ? "positive" : "neutral"}
+              frost={b && b.goals.length > 0 ? "green" : "blue"}
               direction="up"
             />
             <DashboardStat
@@ -276,6 +279,7 @@ export default function CompanyPage() {
               description={(b?.pendingApprovalCount ?? 0) + " pending approval"}
               icon={AlertTriangle}
               intent={(b?.activeIncidents?.length ?? 0) > 0 ? "negative" : "positive"}
+              frost={(b?.activeIncidents?.length ?? 0) > 0 ? "red" : "green"}
               direction={(b?.activeIncidents?.length ?? 0) > 0 ? "up" : "down"}
             />
           </div>
@@ -283,7 +287,7 @@ export default function CompanyPage() {
           {/* Budget + Org Chart Row */}
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {/* Budget Overview Card */}
-            <DashboardCard title="BUDGET OVERVIEW" className="lg:col-span-2">
+            <DashboardCard title="BUDGET OVERVIEW" frost="blue" className="lg:col-span-2">
               <div className="flex flex-col items-center py-4">
                 <BudgetGauge percent={b?.overview?.overallUtilizationPercent ?? 0} size="lg" />
                 <div className="mt-4 text-center">
@@ -300,7 +304,7 @@ export default function CompanyPage() {
               {/* Policy breakdown */}
               <div className="mt-4 space-y-2">
                 {b?.policies?.slice(0, 5).map((p) => (
-                  <div key={p.policyId} className="bg-accent/15 rounded-lg p-2.5">
+                  <div key={p.policyId} className={"rounded-xl p-2.5 " + (p.status === "hard_stop" ? "glass-frost-red" : p.status === "warning" ? "glass-frost-orange" : "glass-frost-green")}>
                     <div className="flex items-center justify-between text-xs mb-1">
                       <div className="flex items-center gap-1.5">
                         <span className={"size-1.5 rounded-full " + (
@@ -324,6 +328,7 @@ export default function CompanyPage() {
             {/* Org Chart Preview */}
             <DashboardCard
               title="ORGANIZATION"
+              frost="blue"
               className="lg:col-span-3"
               addon={
                 <Badge variant="outline" className="text-[9px]">{(s?.totalAgents ?? 0) + " AGENTS"}</Badge>
@@ -354,7 +359,7 @@ export default function CompanyPage() {
           </div>
 
           {/* Agent Spend Table */}
-          <DashboardCard
+          <DashboardCard frost="blue"
             title="AGENT SPEND"
             addon={
               <Badge variant="outline" className="text-[9px]">
@@ -379,7 +384,7 @@ export default function CompanyPage() {
                     const pct = agent.budgetMonthlyCents > 0
                       ? Math.round((agent.spentMonthCents / agent.budgetMonthlyCents) * 100) : 0;
                     return (
-                      <tr key={agent.id} className="border-b border-border/20 hover:bg-accent/10 transition-colors">
+                      <tr key={agent.id} className="border-b border-border/20 transition-colors">
                         <td className="py-2.5 px-2">
                           <div className="flex items-center gap-2">
                             <span className={"size-2 rounded-full shrink-0 " + (
@@ -423,7 +428,7 @@ export default function CompanyPage() {
           </DashboardCard>
 
           {/* Token Usage */}
-          <DashboardCard
+          <DashboardCard frost="blue"
             title="TOKEN USAGE"
             addon={
               <Badge variant="outline" className="text-[9px]">
@@ -434,7 +439,7 @@ export default function CompanyPage() {
             {tracker ? (
               <div className="space-y-3">
                 {/* Daily budget bar */}
-                <div className="bg-accent/15 rounded-lg p-3">
+                <div className="glass rounded-xl p-3">
                   <div className="flex items-center justify-between text-xs mb-1.5">
                     <span className="flex items-center gap-1.5 font-medium">
                       <Zap className="size-3 text-primary" />
@@ -476,7 +481,7 @@ export default function CompanyPage() {
                         .map((epic: TrackerEpic) => {
                           const costDollars = epic.tokens_used * 0.003 / 100;
                           return (
-                            <tr key={epic.id} className="border-b border-border/20 hover:bg-accent/10 transition-colors">
+                            <tr key={epic.id} className="border-b border-border/20 transition-colors">
                               <td className="py-2 px-2">
                                 <div className="flex items-center gap-2">
                                   <span className={"size-1.5 rounded-full " + (
@@ -523,11 +528,11 @@ export default function CompanyPage() {
           {/* Goals & Incidents Row */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Goals Progress */}
-            <DashboardCard title="GOALS PROGRESS">
+            <DashboardCard title="GOALS PROGRESS" frost="green">
               {b?.goals && b.goals.length > 0 ? (
                 <div className="space-y-3">
                   {b.goals.map((goal) => (
-                    <div key={goal.id} className="bg-accent/15 rounded-lg p-3">
+                    <div key={goal.id} className={"rounded-xl p-3 " + (goal.status === "completed" ? "glass-frost-green" : goal.status === "attention" ? "glass-frost-orange" : goal.status === "blocked" || goal.status === "at_risk" ? "glass-frost-red" : "glass-frost-green")}>
                       <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-2">
                           <span className={"size-2 rounded-full " + (
@@ -556,15 +561,11 @@ export default function CompanyPage() {
             </DashboardCard>
 
             {/* Active Incidents */}
-            <DashboardCard title="ACTIVE INCIDENTS">
+            <DashboardCard title="ACTIVE INCIDENTS" frost="red">
               {b?.activeIncidents && b.activeIncidents.length > 0 ? (
                 <div className="space-y-2">
                   {b.activeIncidents.map((inc: any) => (
-                    <div key={inc.id} className={"rounded-lg p-3 border " + (
-                      inc.thresholdType === "hard_stop"
-                        ? "border-destructive/30 bg-destructive/5"
-                        : "border-warning/30 bg-warning/5"
-                    )}>
+                    <div key={inc.id} className={inc.thresholdType === "hard_stop" ? "glass-frost-red rounded-xl p-3" : "glass-frost-orange rounded-xl p-3"}>
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
                           <AlertTriangle className={"size-4 " + (inc.thresholdType === "hard_stop" ? "text-destructive" : "text-warning")} />

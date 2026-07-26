@@ -118,7 +118,7 @@ export default function CompanyComparePage() {
           </div>
 
           {/* Comparison Table */}
-          <DashboardCard title="DETAILED COMPARISON">
+          <DashboardCard title="DETAILED COMPARISON" frost="blue">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
@@ -177,7 +177,7 @@ export default function CompanyComparePage() {
 
           {/* Market Share Pie (simplified) */}
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <DashboardCard title="BUDGET DISTRIBUTION">
+            <DashboardCard title="BUDGET DISTRIBUTION" frost="blue">
               <div className="space-y-3">
                 {companies.map((c, i) => {
                   const pct = (c.monthlyBudgetCents / maxBudget) * 100;
@@ -200,7 +200,7 @@ export default function CompanyComparePage() {
               </div>
             </DashboardCard>
 
-            <DashboardCard title="AGENT DISTRIBUTION">
+            <DashboardCard title="AGENT DISTRIBUTION" frost="blue">
               <div className="space-y-3">
                 {companies.map((c, i) => {
                   const pct = (c.agentCount / maxAgents) * 100;

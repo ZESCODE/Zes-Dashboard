@@ -72,18 +72,19 @@ function ExperimentsTab({ experiments, toggleExperiment }: {
           <div
             key={exp.id}
             className={cn(
-              "rounded-lg border p-4 transition-all duration-300 hover:border-primary/30",
+              "rounded-xl p-4 transition-all duration-300",
               exp.status === "running"
-                ? "border-success/30 bg-success/5"
+                ? "glass-frost-green"
                 : exp.status === "error"
-                ? "border-destructive/30 bg-destructive/5"
-                : "border-border/40 bg-accent/10"
+                ? "glass-frost-red"
+                : "glass-frost-blue"
             )}
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Bullet
                   variant={exp.status === "running" ? "success" : exp.status === "error" ? "destructive" : "default"}
+                  className={exp.status === "running" ? "text-emerald-400" : exp.status === "error" ? "text-red-400" : "text-blue-400"}
                 />
                 <span className="font-display text-sm">{exp.name}</span>
               </div>
@@ -97,14 +98,14 @@ function ExperimentsTab({ experiments, toggleExperiment }: {
                 <span className="text-muted-foreground">Progress</span>
                 <span className={cn(
                   "font-mono font-bold",
-                  exp.status === "running" ? "text-success" : exp.status === "error" ? "text-destructive" : "text-muted-foreground"
+                  exp.status === "running" ? "text-emerald-400" : exp.status === "error" ? "text-red-400" : "text-blue-400"
                 )}>{exp.progress}%</span>
               </div>
               <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                 <div
                   className={cn(
                     "h-full rounded-full transition-all duration-700",
-                    exp.status === "running" ? "bg-success" : exp.status === "error" ? "bg-destructive" : "bg-muted-foreground/30"
+                    exp.status === "running" ? "bg-emerald-500" : exp.status === "error" ? "bg-red-500" : "bg-blue-500/50"
                   )}
                   style={{ width: `${exp.progress}%` }}
                 />
@@ -322,7 +323,7 @@ function HireTab({ companies, onHired }: { companies: Company[]; onHired: () => 
 
       {/* Sidebar: preview */}
       <div className="space-y-4">
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <h3 className="text-xs uppercase tracking-wider font-medium text-muted-foreground mb-3 flex items-center gap-1.5">
             <Sparkles className="size-3" />
             Hiring Tips
@@ -351,7 +352,7 @@ function HireTab({ companies, onHired }: { companies: Company[]; onHired: () => 
           </ul>
         </div>
 
-        <div className="bg-accent/15 rounded-lg p-4">
+        <div className="glass rounded-xl p-4">
           <h3 className="text-xs uppercase tracking-wider font-medium text-muted-foreground mb-2">Quick Templates</h3>
           <div className="space-y-2">
             <Button
@@ -512,7 +513,7 @@ function PlaygroundTab() {
         </div>
 
         {templateVars.length > 0 && (
-          <div className="bg-accent/15 rounded-lg p-3 space-y-2">
+          <div className="glass rounded-xl p-3 space-y-2">
             <h4 className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground">Variables</h4>
             {templateVars.map((v) => (
               <div key={v} className="flex items-center gap-2">
@@ -632,6 +633,7 @@ export default function LaboratoryPage() {
           description={`OF ${experiments.length} TOTAL`}
           icon={AtomIcon}
           intent={activeExpCount > 0 ? "positive" : "negative"}
+          frost={activeExpCount > 0 ? "green" : "blue"}
           direction="up"
         />
         <DashboardStat
@@ -640,6 +642,7 @@ export default function LaboratoryPage() {
           description={services.length ? `OF ${services.length} TOTAL` : "LOADING..."}
           icon={GearIcon}
           intent={runningServices > 0 ? "positive" : "negative"}
+          frost={runningServices > 0 ? "green" : "red"}
           direction={runningServices > 2 ? "up" : "down"}
         />
         <DashboardStat
@@ -647,7 +650,8 @@ export default function LaboratoryPage() {
           value={sysInfo ? `${sysInfo.load[0]?.toFixed(1) ?? "0.0"}` : "0.0"}
           description="LOAD AVERAGE (1m)"
           icon={ProcessorIcon}
-          intent={sysInfo && sysInfo.load[0] > 2 ? "negative" : "positive"}
+          intent={sysInfo && sysInfo.load[0] > 2 ? "negative" : sysInfo && sysInfo.load[0] > 1 ? "neutral" : "positive"}
+          frost={sysInfo && sysInfo.load[0] > 2 ? "red" : sysInfo && sysInfo.load[0] > 1 ? "orange" : "green"}
           direction={sysInfo && sysInfo.load[0] > 2 ? "up" : "down"}
         />
         <DashboardStat
@@ -656,12 +660,13 @@ export default function LaboratoryPage() {
           description="ACTIVE GROUPS"
           icon={Users}
           intent={companies.length > 0 ? "positive" : "negative"}
+          frost={companies.length > 0 ? "green" : "blue"}
           direction={companies.length > 1 ? "up" : "down"}
         />
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-accent/20 rounded-lg p-1 mb-6 w-fit">
+      <div className="flex items-center gap-1 glass rounded-lg p-1 mb-6 w-fit">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
@@ -687,9 +692,10 @@ export default function LaboratoryPage() {
         <DashboardCard
           title="ACTIVE EXPERIMENTS"
           intent={activeExpCount > 0 ? "success" : "default"}
+          frost="blue"
           addon={
             <Badge variant={activeExpCount > 0 ? "default" : "secondary"}>
-              <span className={cn("inline-block size-1.5 rounded-full mr-1.5", activeExpCount > 0 ? "bg-success" : "bg-muted-foreground")} />
+              <span className={cn("inline-block size-1.5 rounded-full mr-1.5", activeExpCount > 0 ? "bg-emerald-500" : "bg-muted-foreground")} />
               {activeExpCount} RUNNING
             </Badge>
           }
@@ -700,7 +706,7 @@ export default function LaboratoryPage() {
       )}
 
       {activeTab === "hire" && (
-        <DashboardCard title="HIRE AGENT" className="mb-6">
+        <DashboardCard title="HIRE AGENT" frost="blue" className="mb-6">
           <HireTab companies={companies} onHired={() => {
             // Refresh company list
             fetch("/api/company").then(r => r.ok && r.json()).then(data => {
@@ -714,61 +720,61 @@ export default function LaboratoryPage() {
       )}
 
       {activeTab === "playground" && (
-        <DashboardCard title="PROMPT PLAYGROUND" className="mb-6">
+        <DashboardCard title="PROMPT PLAYGROUND" frost="blue" className="mb-6">
           <PlaygroundTab />
         </DashboardCard>
       )}
 
       {/* Chart & System Monitor (always visible) */}
-      <div className="mb-6">
+      <DashboardCard title="METRICS" frost="blue" className="mb-6">
         <DashboardChart />
-      </div>
+      </DashboardCard>
 
-      <DashboardCard title="SYSTEM MONITOR" intent="default">
+      <DashboardCard title="SYSTEM MONITOR" frost="blue">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-accent/20 rounded-lg p-4">
+          <div className={cn("rounded-xl p-4", sysInfo && sysInfo.load[0] > 2 ? "glass-frost-red" : sysInfo && sysInfo.load[0] > 1 ? "glass-frost-orange" : "glass-frost-green")}>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">CPU</span>
               <Bullet variant={sysInfo && sysInfo.load[0] > 2 ? "destructive" : "success"} />
             </div>
-            <div className="text-2xl font-display font-bold mb-1">
+            <div className={cn("text-2xl font-display font-bold mb-1", sysInfo && sysInfo.load[0] > 2 ? "text-red-400" : sysInfo && sysInfo.load[0] > 1 ? "text-orange-400" : "text-emerald-400")}>
               {sysInfo ? `${sysInfo.load[0]?.toFixed(1) ?? "0.0"}` : "---"}
             </div>
             <div className="text-[10px] text-muted-foreground font-mono">load average</div>
           </div>
-          <div className="bg-accent/20 rounded-lg p-4">
+          <div className={cn("rounded-xl p-4", sysInfo && sysInfo.memory.percent > 80 ? "glass-frost-red" : sysInfo && sysInfo.memory.percent > 60 ? "glass-frost-orange" : "glass-frost-green")}>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">MEMORY</span>
               <Bullet variant={sysInfo && sysInfo.memory.percent > 80 ? "destructive" : sysInfo && sysInfo.memory.percent > 60 ? "warning" : "success"} />
             </div>
-            <div className="text-2xl font-display font-bold mb-1">
+            <div className={cn("text-2xl font-display font-bold mb-1", sysInfo && sysInfo.memory.percent > 80 ? "text-red-400" : sysInfo && sysInfo.memory.percent > 60 ? "text-orange-400" : "text-emerald-400")}>
               {sysInfo?.memory.used ?? "---"}
             </div>
             <div className="text-[10px] text-muted-foreground font-mono">of {sysInfo?.memory.total ?? "---"} total</div>
-            <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="mt-2 h-1.5 bg-muted/40 rounded-full overflow-hidden">
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
-                  sysInfo && sysInfo.memory.percent > 80 ? "bg-destructive" : sysInfo && sysInfo.memory.percent > 60 ? "bg-warning" : "bg-success"
+                  sysInfo && sysInfo.memory.percent > 80 ? "bg-red-500" : sysInfo && sysInfo.memory.percent > 60 ? "bg-orange-500" : "bg-emerald-500"
                 )}
                 style={{ width: `${sysInfo?.memory.percent ?? 0}%` }}
               />
             </div>
           </div>
-          <div className="bg-accent/20 rounded-lg p-4">
+          <div className={cn("rounded-xl p-4", sysInfo && sysInfo.disk.percent > 85 ? "glass-frost-red" : sysInfo && sysInfo.disk.percent > 70 ? "glass-frost-orange" : "glass-frost-green")}>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs uppercase tracking-wider text-muted-foreground font-medium">DISK</span>
               <Bullet variant={sysInfo && sysInfo.disk.percent > 85 ? "destructive" : sysInfo && sysInfo.disk.percent > 70 ? "warning" : "success"} />
             </div>
-            <div className="text-2xl font-display font-bold mb-1">
+            <div className={cn("text-2xl font-display font-bold mb-1", sysInfo && sysInfo.disk.percent > 85 ? "text-red-400" : sysInfo && sysInfo.disk.percent > 70 ? "text-orange-400" : "text-emerald-400")}>
               {sysInfo?.disk.used ?? "---"}
             </div>
             <div className="text-[10px] text-muted-foreground font-mono">of {sysInfo?.disk.total ?? "---"} total</div>
-            <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="mt-2 h-1.5 bg-muted/40 rounded-full overflow-hidden">
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
-                  sysInfo && sysInfo.disk.percent > 85 ? "bg-destructive" : sysInfo && sysInfo.disk.percent > 70 ? "bg-warning" : "bg-success"
+                  sysInfo && sysInfo.disk.percent > 85 ? "bg-red-500" : sysInfo && sysInfo.disk.percent > 70 ? "bg-orange-500" : "bg-emerald-500"
                 )}
                 style={{ width: `${sysInfo?.disk.percent ?? 0}%` }}
               />

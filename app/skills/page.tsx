@@ -114,7 +114,7 @@ export default function SkillsPage() {
                   "px-2.5 py-1.5 rounded text-[10px] font-semibold uppercase tracking-wider whitespace-nowrap transition-all flex items-center gap-1",
                   category === cat
                     ? "bg-primary text-primary-foreground"
-                    : "bg-accent/20 text-muted-foreground hover:bg-accent/40"
+                    : "glass text-muted-foreground hover:bg-white/10"
                 )}
               >
                 {Icon && <Icon className="size-3" />}
@@ -152,7 +152,7 @@ export default function SkillsPage() {
                       "w-full text-left rounded-lg p-3 border transition-all",
                       selected?.name === skill.name
                         ? "border-primary bg-primary/5"
-                        : "border-border/30 bg-accent/5 hover:bg-accent/10 hover:border-primary/30"
+                        : "border-border/30 bg-white/5 hover:bg-white/10 hover:border-primary/30"
                     )}
                   >
                     <div className="flex items-center gap-2 mb-1">
@@ -177,7 +177,7 @@ export default function SkillsPage() {
           {/* Detail Panel */}
           {selected && (
             <div className="lg:col-span-2">
-              <div className="rounded-xl border border-border/40 bg-card">
+              <div className="rounded-xl border border-border/40 glass">
                 <div className="flex items-center justify-between p-4 border-b border-border/20">
                   <div className="flex items-center gap-2">
                     {React.createElement(categoryIcons[selected.category] || Code, { className: "size-4 text-muted-foreground" })}
@@ -211,7 +211,7 @@ export default function SkillsPage() {
                         Skill Content ({selected.content.length} chars)
                       </button>
                       {expanded && (
-                        <pre className="text-[10px] leading-relaxed text-muted-foreground bg-accent/20 rounded-lg p-3 whitespace-pre-wrap font-mono max-h-[300px] overflow-y-auto border border-border/20">
+                        <pre className="text-[10px] leading-relaxed text-muted-foreground glass rounded-xl p-3 whitespace-pre-wrap font-mono max-h-[300px] overflow-y-auto border border-border/20">
                           {selected.content.slice(0, 5000)}
                           {selected.content.length > 5000 && (
                             <span className="block text-center text-[9px] text-muted-foreground mt-2">

@@ -35,7 +35,7 @@ export default function ClaudeCodePage() {
 
   return (
     <DashboardPageLayout header={{ title: "Claude Code", description: "AI coding agent via 9Router proxy", icon: CuteRobotIcon }}>
-      <DashboardCard title="SERVICE STATUS" intent={status === "running" ? "success" : "default"}>
+      <DashboardCard title="SERVICE STATUS" frost={status === "running" ? "green" : "red"}>
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -65,13 +65,13 @@ export default function ClaudeCodePage() {
           </div>
 
           {result && (
-            <div className="bg-accent/20 rounded-lg px-3 py-2 text-sm font-mono text-muted-foreground">{result}</div>
+            <div className="glass rounded-xl px-3 py-2 text-sm font-mono text-muted-foreground">{result}</div>
           )}
 
           {serviceInfo && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {Object.entries(serviceInfo).map(([key, val]) => (
-                <div key={key} className="bg-accent/20 rounded-lg p-2">
+                <div key={key} className="glass rounded-xl p-2">
                   <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{key}</div>
                   <div className="text-xs font-mono font-bold truncate">{String(val)}</div>
                 </div>
@@ -81,13 +81,13 @@ export default function ClaudeCodePage() {
         </div>
       </DashboardCard>
 
-      <DashboardCard title="PROXY ENDPOINTS" intent="default">
+      <DashboardCard title="PROXY ENDPOINTS" frost="blue">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             { port: 5905, name: "Claude Proxy", desc: "Anthropic-compatible API via 9Router" },
             { port: 20128, name: "9Router Gateway", desc: "Main LLM request router" },
           ].map(ep => (
-            <div key={ep.port} className="flex items-center justify-between bg-accent/20 rounded-lg p-3">
+            <div key={ep.port} className="flex items-center justify-between glass rounded-xl p-3">
               <div>
                 <div className="text-sm font-medium">{ep.name}</div>
                 <div className="text-xs text-muted-foreground">{ep.desc}</div>
