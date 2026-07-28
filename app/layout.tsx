@@ -16,6 +16,7 @@ import { MobileChat } from "@/components/chat/mobile-chat";
 import Chat from "@/components/chat";
 import CommandPaletteWrapper from "@/components/dashboard/command-palette-wrapper";
 import FrostInjector from "@/components/dashboard/frost-injector";
+import { Analytics } from "@vercel/analytics/next";
 
 const mockData = mockDataJson as MockData;
 
@@ -97,6 +98,7 @@ export default function RootLayout({
           <CommandPaletteWrapper />
         </V0Provider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
