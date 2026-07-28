@@ -13,9 +13,10 @@ interface WidgetProps {
 }
 
 export default function Widget({ widgetData }: WidgetProps) {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   useEffect(() => {
+    setCurrentTime(new Date());
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -23,7 +24,8 @@ export default function Widget({ widgetData }: WidgetProps) {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date: Date) => {
+  const formatTime = (date: Date | null) => {
+    if (!date) return "";
     return date.toLocaleTimeString("en-US", {
       hour12: true,
       hour: "numeric",

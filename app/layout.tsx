@@ -10,6 +10,7 @@ import mockDataJson from "@/mock.json";
 import type { MockData } from "@/types/dashboard";
 import Widget from "@/components/dashboard/widget";
 import Notifications from "@/components/dashboard/notifications";
+import { ThemeProvider } from "@/components/terminal/theme-provider";
 import { NotificationBell } from "@/components/dashboard/notification-bell";
 import { MobileChat } from "@/components/chat/mobile-chat";
 import Chat from "@/components/chat";
@@ -61,21 +62,23 @@ export default function RootLayout({
         className={`${rebelGrotesk.variable} ${robotoMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <FrostInjector /><V0Provider isV0={isV0}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <FrostInjector />
+          <V0Provider isV0={isV0}>
           <SidebarProvider>
             {/* Mobile Header - only visible on mobile */}
             <MobileHeader mockData={mockData} />
 
             {/* Desktop Layout */}
             <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-gap lg:px-sides">
-              <div className="hidden lg:block col-span-2 sticky top-0 h-screen">
+              <div className="hidden lg:block col-span-2 sticky top-0 h-screen overflow-y-auto">
                 <DashboardSidebar />
               </div>
               <div className="col-span-1 lg:col-span-7">
                 {children}
               </div>
               <div className="col-span-3 hidden lg:block">
-                <div className="space-y-gap py-sides min-h-screen max-h-screen sticky top-0 overflow-clip">
+                <div className="space-y-gap py-sides min-h-screen max-h-screen sticky top-0 overflow-y-auto">
                   <div className="flex items-center justify-end px-4">
                     <NotificationBell />
                   </div>
@@ -93,6 +96,7 @@ export default function RootLayout({
           </SidebarProvider>
           <CommandPaletteWrapper />
         </V0Provider>
+        </ThemeProvider>
       </body>
     </html>
   );
