@@ -29,7 +29,7 @@ interface Task {
 /* ────────────── Sample Tasks ────────────── */
 
 const defaultTasks: Task[] = [
-  { id: "t1",  name: "Deploy dashboard 7070",          description: "Serve ZES Orchestration Dashboard on port 7070", status: "completed", priority: "high",   agent: "Codex",   created: "2h ago",  duration: "3m 12s", retries: 1 },
+  { id: "t1",  name: "Migrate to unified dashboard",          description: "Serving unified ZES OS dashboard on port 5051", status: "completed", priority: "high",   agent: "Codex",   created: "2h ago",  duration: "3m 12s", retries: 1 },
   { id: "t2",  name: "Wire Overview page to Flask API", description: "Replace mock.json with live :5002 endpoints",   status: "completed", priority: "high",   agent: "Hermes",  created: "1h ago",  duration: "45s",    retries: 0 },
   { id: "t3",  name: "Create Orchestrator page",        description: "Strategic command center page for goal tracking", status: "running", priority: "high", agent: "Hermes",  created: "10m ago", duration: "—",      retries: 0 },
   { id: "t4",  name: "Build Tasks queue page",          description: "Task list with priority and status management",  status: "pending",  priority: "medium", agent: "Hermes",  created: "5m ago",  duration: "—",      retries: 0 },

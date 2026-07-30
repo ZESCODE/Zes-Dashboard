@@ -11,16 +11,17 @@ import {
 } from "lucide-react";
 import { getHealth } from "@/lib/api-client";
 import WiringDiagram from "@/components/wireflow/wiring-diagram";
+import StatusDiagram from "@/components/dashboard/status-diagram";
 import GearIcon from "@/components/icons/gear";
 
 const services = [
   { id: "codex", label: "Codex CLI", icon: Bot, port: 5900, color: "from-blue-500 to-indigo-600", tier: 0 },
   { id: "claude", label: "Claude Code", icon: Terminal, port: 5905, color: "from-emerald-500 to-teal-600", tier: 0 },
   { id: "hermes", label: "Hermes Agent", icon: Zap, port: 0, color: "from-amber-500 to-orange-600", tier: 0 },
-  { id: "9router", label: "9Router Gateway", icon: Router, port: 20128, color: "from-purple-500 to-violet-600", tier: 1 },
+  { id: "bitrouter", label: "BitRouter Gateway", icon: Router, port: 4356, color: "from-purple-500 to-violet-600", tier: 1 },
   { id: "amux", label: "Teams", icon: Monitor, port: 8822, color: "from-cyan-500 to-sky-600", tier: 1 },
   { id: "flask-api", label: "Flask API", icon: Database, port: 5002, color: "from-pink-500 to-rose-600", tier: 1 },
-  { id: "zes-dashboard", label: "ZES :7070", icon: Monitor, port: 7070, color: "from-emerald-500 to-green-600", tier: 2 },
+  { id: "zes-dashboard", label: "ZES OS :5051", icon: Monitor, port: 5051, color: "from-emerald-500 to-green-600", tier: 2 },
   { id: "memory-hub", label: "Memory Hub", icon: Database, port: 0, color: "from-teal-500 to-emerald-600", tier: 2 },
   { id: "vscode", label: "VS Code Server", icon: HardDrive, port: 8000, color: "from-sky-500 to-blue-600", tier: 2 },
   { id: "chromium", label: "Headless CDP", icon: Globe, port: 9222, color: "from-yellow-500 to-amber-600", tier: 2 },
@@ -184,6 +185,16 @@ export default function TopologyPage() {
       )}
 
 
+      {/* ── Live Status Diagram (auto-glows based on service health) ── */}
+      <div className="mt-8 glass-frost-blue rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="inline-block size-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
+          <span className="text-sm font-semibold">Live System Status</span>
+          <span className="text-[10px] text-muted-foreground/50 font-mono">auto-updates every 10s · glow reflects real service health</span>
+        </div>
+        <StatusDiagram />
+      </div>
+
       {/* ── Interactive Wiring Diagram ── */}
       <details className="group mt-8">
         <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
@@ -191,7 +202,7 @@ export default function TopologyPage() {
           Interactive Topology Diagram
           <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
         </summary>
-        <div className="rounded-xl border border-border overflow-hidden" style={{ height: 500 }}>
+        <div className="glass-frost-blue rounded-xl overflow-hidden h-[300px] md:h-[500px]">
           <WiringDiagram />
         </div>
       </details>

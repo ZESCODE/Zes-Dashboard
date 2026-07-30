@@ -1,10 +1,3 @@
-@font-face {
-  font-family: "Rebels";
-  src: url("/fonts/Rebels-Fett.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -12,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: var(--font-rebels);
+  --font-display: var(--font-inter);
   --font-mono: var(--font-roboto-mono);
 
   --color-background: var(--background);
@@ -113,17 +106,17 @@
 }
 
 .dark {
-  --background: oklch(0.2029 0.0037 345.62);
+  --background: #000000;
   --foreground: oklch(0.9851 0 0);
-  --card: oklch(0.2029 0.0037 345.62);
+  --card: #000000;
   --card-foreground: oklch(0.9851 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: #000000;
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.4703 0.2364 263.19);
   --primary-foreground: oklch(0.9851 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.2393 0 0);
+  --muted: #050505;
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.9851 0 0 / 5%);
   --accent-foreground: oklch(0.985 0 0);
@@ -142,7 +135,7 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
 
-  --sidebar: oklch(0.2029 0.0037 345.62);
+  --sidebar: #000000;
   --sidebar-foreground: oklch(0.9851 0 0);
   --sidebar-primary: oklch(0.4703 0.2364 263.19);
   --sidebar-primary-foreground: oklch(0.9851 0 0);
@@ -159,6 +152,10 @@
   }
   body {
     @apply bg-muted text-foreground font-mono;
+    background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(16,185,129,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(59,130,246,0.05) 0%, transparent 50%),
+                #000000;
   }
 
   /* Subtle scrollbar for webkit browsers */
@@ -254,6 +251,16 @@
 .group:hover .animate-marquee-up,
 .group:hover .animate-marquee-down {
   animation-play-state: paused;
+}
+
+/* ── Dark background enforcement ── */
+html.dark body,
+.dark body {
+  background-color: #000000 !important;
+}
+html.dark,
+.dark {
+  background-color: #000000;
 }
 /* ── Glassmorphic Utility Classes (unlayered for Turbopack compat) ── */
   .glass {
@@ -458,3 +465,24 @@
 :root:not(.dark) .glass-frost-orange:hover { background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(234,88,12,0.12) 100%); border-color: rgba(249,115,22,0.42); box-shadow: 0 8px 40px rgba(249,115,22,0.18), 0 1px 0 rgba(255,255,255,0.8) inset; }
 :root:not(.dark) .glass-frost-blue { background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(37,99,235,0.06) 100%); border-color: rgba(59,130,246,0.28); box-shadow: 0 4px 24px rgba(59,130,246,0.1), 0 1px 0 rgba(255,255,255,0.7) inset; }
 :root:not(.dark) .glass-frost-blue:hover { background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.12) 100%); border-color: rgba(59,130,246,0.42); box-shadow: 0 8px 40px rgba(59,130,246,0.18), 0 1px 0 rgba(255,255,255,0.8) inset; }
+
+/* ── Mobile Bottom Nav Safe Area ── */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Minimum Touch Targets (24px) ── */
+.touch-target {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* ── Topology mobile optimizations ── */
+@media (max-width: 1023px) {
+  .topology-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .topology-node {
+    min-height: 70px;
+  }
+}

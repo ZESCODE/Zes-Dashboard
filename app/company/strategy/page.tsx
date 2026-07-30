@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import DashboardCard from "@/components/dashboard/card";
-import DashboardStat from "@/components/dashboard/stat";
+import { GlassStatCard } from "@/components/dashboard/glass-stat";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import BracketsIcon from "@/components/icons/brackets";
 import BuildingIcon from "@/components/icons/building";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
 
 /* --------------- Types --------------- */
 
@@ -277,14 +278,10 @@ export default function StrategyPage() {
         <>
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            <DashboardStat label="GOALS" value={String(stats?.total ?? 0)} description="Strategic initiatives" icon={Target}
-              intent={(stats?.total ?? 0) > 0 ? "positive" : "neutral"} direction={stats && stats.onTrack > stats.attention ? "up" : "down"} />
-            <DashboardStat label="ON TRACK" value={String(stats?.onTrack ?? 0)} description="Meeting KPIs" icon={Shield}
-              intent={(stats?.onTrack ?? 0) > 0 ? "positive" : "neutral"} direction="up" />
-            <DashboardStat label="NEEDS ATTENTION" value={String(stats?.attention ?? 0)} description="Blocked or behind" icon={AlertTriangle}
-              intent={(stats?.attention ?? 0) > 0 ? "warning" : "positive"} direction={stats && stats.attention > 0 ? "down" : "up"} />
-            <DashboardStat label="AVG PROGRESS" value={String(stats?.avgProgress ?? 0) + "%"} description="Across all goals" icon={Eye}
-              intent={stats && stats.avgProgress >= 60 ? "positive" : stats && stats.avgProgress >= 30 ? "warning" : "negative"} direction="up" />
+            <GlassStatCard label="GOALS" value={String(stats?.total ?? 0)} change="Strategic initiatives" icon={Target} frost="blue" />
+            <GlassStatCard label="ON TRACK" value={String(stats?.onTrack ?? 0)} change="Meeting KPIs" icon={Shield} frost="blue" />
+            <GlassStatCard label="NEEDS ATTENTION" value={String(stats?.attention ?? 0)} change="Blocked or behind" icon={AlertTriangle} frost="blue" />
+            <GlassStatCard label="AVG PROGRESS" value={String(stats?.avgProgress ?? 0) + "%"} change="Across all goals" icon={Eye} frost="blue" />
           </div>
 
           {/* Goals */}
@@ -303,6 +300,18 @@ export default function StrategyPage() {
           </div>
         </>
       ) : null}
+
+      {/* Strategy Map Diagram */}
+      <details className="group mt-8">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+          <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+          Strategy Map
+          <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+        </summary>
+        <div className="rounded-xl border border-border overflow-hidden" style={{ minHeight: 500 }}>
+          <WiringDiagram />
+        </div>
+      </details>
 
       {showNewGoal && (
         <NewGoalDialog

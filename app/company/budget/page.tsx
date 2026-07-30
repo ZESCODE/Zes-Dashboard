@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import DashboardCard from "@/components/dashboard/card";
-import DashboardStat from "@/components/dashboard/stat";
+import { GlassStatCard } from "@/components/dashboard/glass-stat";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -197,14 +197,10 @@ export default function BudgetPage() {
         <>
           {/* Executive Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            <DashboardStat label="TOTAL BUDGET" value={formatCents(b.overview?.totalBudgetCents ?? 0)} description={`${pct}% utilized`} icon={DollarSign}
-              intent={pct >= 80 ? "negative" : "positive"} direction={pct > 50 ? "down" : "up"} />
-            <DashboardStat label="SPENT" value={formatCents(b.overview?.totalSpentCents ?? 0)} description="Month to date" icon={Zap}
-              intent="neutral" direction={pct > 50 ? "up" : "down"} />
-            <DashboardStat label="POLICIES" value={String(policies.length)} description={`${policies.filter(p => p.status === "ok").length} healthy`} icon={Shield}
-              intent={policies.filter(p => p.status !== "ok").length === 0 ? "positive" : "warning"} direction="up" />
-            <DashboardStat label="INCIDENTS" value={String(incidents.length)} description={`${b.pausedAgentCount || 0} paused, ${b.pendingApprovalCount || 0} pending`} icon={AlertTriangle}
-              intent={incidents.length > 0 ? "negative" : "positive"} direction={incidents.length > 0 ? "up" : "down"} />
+            <GlassStatCard label="TOTAL BUDGET" value={formatCents(b.overview?.totalBudgetCents ?? 0)} change={pct + "% utilized"} icon={DollarSign} frost="blue" />
+            <GlassStatCard label="SPENT" value={formatCents(b.overview?.totalSpentCents ?? 0)} change="Month to date" icon={Zap} frost="blue" />
+            <GlassStatCard label="POLICIES" value={String(policies.length)} change={policies.filter(p => p.status === "ok").length + " healthy"} icon={Shield} frost="blue" />
+            <GlassStatCard label="INCIDENTS" value={String(incidents.length)} change={b.pausedAgentCount + " paused"} icon={AlertTriangle} frost="blue" />
           </div>
 
           {/* Main gauge */}

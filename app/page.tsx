@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import DashboardStat from "@/components/dashboard/stat";
@@ -16,6 +16,7 @@ import BracketsIcon from "@/components/icons/brackets";
 import GearIcon from "@/components/icons/gear";
 import ProcessorIcon from "@/components/icons/proccesor";
 import BoomIcon from "@/components/icons/boom";
+import StatusDiagram from "@/components/dashboard/status-diagram";
 import { getHealth, getSystemInfo, getServices } from "@/lib/api-client";
 import {
   Circle, Play, CheckCircle2, XCircle, Target, DollarSign, Users,
@@ -67,11 +68,13 @@ export default function DashboardOverview() {
   const [companyCount, setCompanyCount] = useState(0);
   const [agentCount, setAgentCount] = useState(0);
   const [budgetData, setBudgetData] = useState<any>(null);
+  const fetchFailed = useRef(false);
 
   const fetchData = async () => {
+    if (fetchFailed.current) return;  // stop polling after failure to suppress browser console errors
     const [health, system, services] = await Promise.all([
       getHealth(), getSystemInfo(), getServices(),
-    ]).catch(() => [null, null, null]);
+    ]).catch(() => { fetchFailed.current = true; return [null, null, null]; });
 
     if (health) {
       const s = health.map((svc: any, i: number) => ({
@@ -99,6 +102,7 @@ export default function DashboardOverview() {
 
     // Fetch companies + tracker
     try {
+      if (fetchFailed.current) return;
       const [cRes, trRes] = await Promise.all([
         fetch("/api/company", { signal: AbortSignal.timeout(3000) }),
         fetch("/api/company/tracker", { signal: AbortSignal.timeout(3000) }),
@@ -277,6 +281,16 @@ export default function DashboardOverview() {
       </div>
 
       <ActivityFeed />
+
+      {/* Live System Status Diagram — auto-glows by service health */}
+      <div className="glass-card rounded-xl p-4 mt-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="inline-block size-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.5)]" />
+          <span className="text-xs font-semibold uppercase tracking-wider">Live System Status</span>
+          <span className="text-[10px] text-muted-foreground/50 font-mono ml-auto">auto-updates every 10s · glow = service health</span>
+        </div>
+        <StatusDiagram />
+      </div>
     </DashboardPageLayout>
   );
 }

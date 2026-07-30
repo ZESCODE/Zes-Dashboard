@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   Users, DollarSign, Target, ChevronRight, ChevronDown,
-  Zap, Shield, AlertTriangle, Star,
+  Zap, Shield, AlertTriangle, Star, LayoutGrid,
 } from "lucide-react";
 import BracketsIcon from "@/components/icons/brackets";
 import BuildingIcon from "@/components/icons/building";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
 
 /* --------------- Types --------------- */
 
@@ -153,7 +154,7 @@ export default function OrgChartPage() {
   const [roster, setRoster] = useState<RosterData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<"tree" | "cards">("tree");
+  const [view, setView] = useState<"tree" | "cards" | "diagram">("tree");
 
   const fetchData = useCallback(async () => {
     try {
@@ -183,6 +184,7 @@ export default function OrgChartPage() {
             <div className="flex bg-muted rounded-lg p-0.5">
               <button onClick={() => setView("tree")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "tree" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Tree</button>
               <button onClick={() => setView("cards")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "cards" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Cards</button>
+              <button onClick={() => setView("diagram")} className={"px-3 py-1 text-[10px] rounded-md transition-colors " + (view === "diagram" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>Diagram</button>
             </div>
             <Button variant="outline" size="sm" className="h-7 text-[10px]" onClick={fetchData}>REFRESH</Button>
           </div>
@@ -219,7 +221,7 @@ export default function OrgChartPage() {
           </div>
 
           {view === "tree" ? (
-            <DashboardCard title="ORGANIZATION TREE">
+            <DashboardCard title="ORGANIZATION TREE" frost="blue">
               {roster?.orgTree && roster.orgTree.length > 0 ? (
                 <div className="space-y-4">
                   {roster.orgTree.map((root) => (
@@ -233,8 +235,8 @@ export default function OrgChartPage() {
                 </div>
               )}
             </DashboardCard>
-          ) : (
-            <DashboardCard title="AGENT CARDS">
+          ) : view === "cards" ? (
+            <DashboardCard title="AGENT CARDS" frost="green">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {roster?.agents?.map((agent) => {
                   const pct = agent.budgetMonthlyCents > 0 ? Math.round((agent.spentMonthCents / agent.budgetMonthlyCents) * 100) : 0;
@@ -262,7 +264,7 @@ export default function OrgChartPage() {
                       </div>
                       <div className="flex items-center justify-between text-[10px] mt-1">
                         <span className="text-muted-foreground">Spent</span>
-                        <span className={"font-mono " + (pct >= 100 ? "text-destructive" : pct >= 80 ? "text-warning" : "text-success")}>{formatCents(agent.spentMonthCents)} ({pct}%)</span>
+                        <span className={"font-mono " + (pct >= 100 ? "text-destructive" : pct >= 80 ? "bg-warning" : "bg-success")}>{formatCents(agent.spentMonthCents)} ({pct}%)</span>
                       </div>
                       <div className="text-[9px] text-muted-foreground mt-2 font-mono">Reports to: {agent.reportsTo || "CEO"}</div>
                     </div>
@@ -270,6 +272,10 @@ export default function OrgChartPage() {
                 })}
               </div>
             </DashboardCard>
+          ) : (
+            <div className="rounded-xl border border-border overflow-hidden" style={{ minHeight: 500 }}>
+              <WiringDiagram />
+            </div>
           )}
         </>
       )}

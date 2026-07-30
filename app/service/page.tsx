@@ -14,7 +14,7 @@ import {
 } from "@/components/icons/papirus";
 
 const ICON_MAP: Record<string, any> = {
-  "9router-proxy": NetworkIcon,
+  "bitrouter-proxy": NetworkIcon,
   "amux": AgentIcon,
   "claude-proxy": ChatIcon,
   "hermes": AgentIcon,
@@ -31,7 +31,7 @@ const ICON_MAP: Record<string, any> = {
 };
 
 const PORT_MAP: Record<string, number> = {
-  "9router-proxy": 20128, "amux": 8822, "claude-proxy": 5905,
+  "bitrouter-proxy": 4356, "amux": 8822, "claude-proxy": 5905,
   "zes-dashboard": 5050, "zes-flask-api": 5002, "hermes-webui": 8787,
   "claude-dashboard": 8788, "terminal": 7173, "vscode-server": 8000,
 };

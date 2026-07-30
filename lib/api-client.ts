@@ -108,6 +108,19 @@ export async function createAmuxSession(config: AgentConfig): Promise<{ ok: bool
   }
 }
 
+export function trimModelName(name: string): string {
+  if (!name) return "unknown";
+  return name.replace(/^oc\//, "").replace(/^zen-/, "").replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
+
+export function countRunningServices(services: { running: boolean }[]): number {
+  return services.filter(s => s.running).length;
+}
+
+export async function getProxyStatus(): Promise<{ model: { full: string } } | null> {
+  return fetchJSON<{ model: { full: string } }>(`${API_BASE}/proxy-status`);
+}
+
 export async function getModels(): Promise<{ models: import("@/types/dashboard").Model[] }> {
   try {
     const res = await fetch(`${ROUTER_API}/models`);

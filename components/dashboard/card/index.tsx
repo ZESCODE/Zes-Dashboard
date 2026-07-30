@@ -28,7 +28,7 @@ export default function DashboardCard({
     <Card
       className={cn(
         className,
-        tokens?.cardClass
+        tokens?.cardClass || undefined
       )}
       {...props}
     >

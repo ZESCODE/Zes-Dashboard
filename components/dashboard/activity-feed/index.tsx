@@ -38,10 +38,14 @@ export default function ActivityFeed({ className }: { className?: string }) {
   const [events, setEvents] = useState<HealthEvent[]>([]);
   const [connected, setConnected] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const failedRef = useRef(false);
 
   const fetchEvents = async () => {
+    // Stop polling after first failure to avoid browser console red errors
+    if (failedRef.current) return;
     try {
-      const res = await fetch("http://127.0.0.1:5002/api/health/events");
+      const res = await fetch("http://127.0.0.1:5002/api/health/events", { signal: AbortSignal.timeout(3000) });
+      if (!res.ok) { failedRef.current = true; setConnected(false); return; }
       const data = await res.json();
       if (data.events) {
         setEvents(data.events.slice(-20).reverse());
@@ -49,6 +53,7 @@ export default function ActivityFeed({ className }: { className?: string }) {
       }
     } catch {
       setConnected(false);
+      failedRef.current = true;  // stop polling to suppress browser console errors
     }
   };
 

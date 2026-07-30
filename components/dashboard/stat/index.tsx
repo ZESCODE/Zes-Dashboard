@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NumberFlow from "@number-flow/react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +29,9 @@ export default function DashboardStat({
 }: DashboardStatProps) {
   const Icon = icon;
   const tokens = frost ? frostMap[frost] : null;
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   // Extract prefix, numeric value, and suffix from the value string
   const parseValue = (val: string) => {
@@ -75,14 +78,10 @@ export default function DashboardStat({
       <CardContent className="flex-1 pt-2 md:pt-6 overflow-clip relative">
         <div className="flex items-center">
           <span className={cn("text-4xl md:text-5xl font-display", tokens?.accent)}>
-            {isNumeric ? (
-              <NumberFlow
-                value={numericValue}
-                prefix={prefix}
-                suffix={suffix}
-              />
+            {isNumeric && mounted ? (
+              <NumberFlow value={numericValue} prefix={prefix} suffix={suffix} />
             ) : (
-              value
+              <span>{prefix}{numericValue}{suffix}</span>
             )}
           </span>
           {tag && (

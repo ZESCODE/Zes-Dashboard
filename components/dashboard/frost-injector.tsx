@@ -3,6 +3,9 @@
 import { useEffect } from "react";
 
 const FROST_CSS = `
+html, body, .dark, .dark body, html.dark {
+  background-color: #000000 !important;
+}
 .glass-frost-blue {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.35) 0%, rgba(37, 99, 235, 0.20) 100%) !important;
   border: 1px solid rgba(59, 130, 246, 0.5) !important;

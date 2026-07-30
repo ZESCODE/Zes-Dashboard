@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import DashboardCard from "@/components/dashboard/card";
-import DashboardStat from "@/components/dashboard/stat";
+import { GlassStatCard } from "@/components/dashboard/glass-stat";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -148,42 +148,40 @@ export default function CompanyDetailPage() {
         <>
           {/* Stats Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <DashboardStat
+            <GlassStatCard
               label="AGENTS"
               value={String(company.agents?.length || 0)}
-              description="TEAM MEMBERS"
+              change={(company.agents?.length || 0) + " team members"}
               icon={Users}
-              intent={(company.agents?.length || 0) > 0 ? "positive" : "negative"}
-              direction="up"
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="BUDGET UTILIZATION"
               value={budgetUtil.toFixed(1) + "%"}
-              description={formatCents(company.spentMonthCents) + " of " + formatCents(company.monthlyBudgetCents)}
+              change={formatCents(company.spentMonthCents) + " of budget"}
               icon={DollarSign}
-              intent={budgetUtil >= 80 ? "negative" : budgetUtil >= 50 ? "warning" : "positive"}
-              direction={budgetUtil >= 50 ? "up" : "down"}
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="STATUS"
               value={company.status.toUpperCase()}
-              description={company.isPrimary ? "PRIMARY COMPANY" : "PROJECT GROUP"}
+              change={company.isPrimary ? "PRIMARY COMPANY" : "PROJECT GROUP"}
               icon={Target}
-              intent={company.status === "active" ? "positive" : "negative"}
-              direction={company.status === "active" ? "up" : "down"}
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="MONTHLY BUDGET"
               value={formatCents(company.monthlyBudgetCents)}
-              description="USD"
+              change="USD"
               icon={DollarSign}
-              intent="positive"
+              frost="blue"
               direction="up"
             />
           </div>
 
           {/* Agent Roster */}
           <DashboardCard
+            frost="blue"
             title="AGENT ROSTER"
             addon={
               <Badge variant="outline" className="text-[9px]">

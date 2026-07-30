@@ -20,6 +20,7 @@ interface DiagramNodeProps {
   onSelect: () => void
   onHover: (hovered: boolean) => void
   onDrag: (nodeId: string, x: number, y: number) => void
+  status?: "green" | "blue" | "orange" | "red"  // Auto-glow status
 }
 
 const typeConfig = {
@@ -55,6 +56,13 @@ const typeConfig = {
   },
 }
 
+const STATUS_GLOW: Record<string, string> = {
+  green: "#22c55e",
+  blue: "#3b82f6",
+  orange: "#f97316",
+  red: "#ef4444",
+}
+
 export function DiagramNode({
   id,
   label,
@@ -68,6 +76,7 @@ export function DiagramNode({
   onSelect,
   onHover,
   onDrag,
+  status,
 }: DiagramNodeProps) {
   const config = typeConfig[type]
   const Icon = config.icon
@@ -134,6 +143,9 @@ export function DiagramNode({
     }
   }, [isDragging, id, onDrag])
 
+  const statusGlowColor = status ? STATUS_GLOW[status] : null
+  const hasAutoGlow = status && status !== "blue"
+
   return (
     <div
       ref={nodeRef}
@@ -143,7 +155,11 @@ export function DiagramNode({
         isDragging && "cursor-grabbing z-50 transition-none",
         !isDragging && "cursor-grab",
       )}
-      style={{ left: x, top: y }}
+      style={{
+        left: x,
+        top: y,
+        filter: hasAutoGlow ? `drop-shadow(0 0 8px ${statusGlowColor})` : undefined,
+      }}
       onClick={(e) => {
         if (!isDragging) {
           e.stopPropagation()
@@ -158,6 +174,10 @@ export function DiagramNode({
           "relative p-3 rounded-lg border-2 backdrop-blur-sm",
           "transition-all duration-300",
           config.className,
+          status === "green" && "border-emerald-500/60 bg-emerald-500/15",
+          status === "red" && "border-red-500/60 bg-red-500/15",
+          status === "orange" && "border-orange-500/60 bg-orange-500/15",
+          status === "blue" && "border-blue-500/40 bg-blue-500/10",
           (isSelected || isHovered || isDragging) && ["scale-110 z-20", "shadow-lg", config.glowColor],
           isConnected && !isHovered && "opacity-100",
           !isConnected && !isHovered && !isSelected && "opacity-60",
@@ -173,8 +193,8 @@ export function DiagramNode({
           <GripVertical className="w-3 h-3 text-muted-foreground" />
         </div>
 
-        {/* Pulse ring when selected */}
-        {isSelected && <div className="absolute inset-0 rounded-lg border-2 border-current animate-ping opacity-30" />}
+        {/* Pulse ring when selected or auto-glowing for running status */}
+        {(isSelected || status === "green") && <div className={cn("absolute inset-0 rounded-lg border-2 animate-ping opacity-30", status === "green" ? "border-emerald-500" : "border-current")} />}
 
         <div onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
           {/* Icon */}

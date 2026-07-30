@@ -140,7 +140,7 @@ export default function SystemPage() {
               "inline-block w-1.5 h-1.5 rounded-full",
               torOk ? "bg-success" : "bg-muted"
             )} />
-            Gateway: {proxy?.gateway.r9 ? "9Router :20128" : "offline"}
+            Gateway: {proxy?.gateway.r9 ? "BitRouter :4356" : "offline"}
           </span>
           <span className="flex items-center gap-1">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-success" />
@@ -228,7 +228,7 @@ export default function SystemPage() {
               nodes={[
                 { id: "system", name: "ZES System", role: "lead", title: "Orchestrator", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
                   { id: "agents", name: "Agent Layer", role: "assistant", title: "Codex · Claude · Hermes", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
-                  { id: "gateway", name: "Gateway", role: "assistant", title: "9Router · Teams", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "gateway", name: "Gateway", role: "assistant", title: "BitRouter · Teams", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
                   { id: "infra", name: "Infrastructure", role: "assistant", title: "Memory · CDP · VS Code", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
                 ]}
               ]}

@@ -172,7 +172,7 @@ export default function ProcessesPage() {
             nodes={[
               { id: "init", name: "Init", role: "lead", title: "System Init", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
                 { id: "services", name: "Services", role: "assistant", title: "Service Manager", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [
-                  { id: "9router", name: "9Router", role: "specialist", title: "AI Gateway", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
+                  { id: "bitrouter", name: "BitRouter", role: "specialist", title: "AI Gateway", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] },
                   { id: "hermes-svc", name: "Hermes", role: "specialist", title: "Agent Service", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [] }
                 ]},
                 { id: "dashboard", name: "Dashboard", role: "assistant", title: "UI Server", status: "running", budgetMonthlyCents: 0, spentMonthCents: 0, reports: [

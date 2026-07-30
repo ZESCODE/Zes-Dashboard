@@ -19,7 +19,7 @@ export default function ClaudeCodePage() {
     try {
       const res = await fetch(`http://localhost:5905/`);
       setStatus(res.ok ? "running" : "error");
-      setServiceInfo({ port: 5905, proxy: "9Router", endpoint: "http://localhost:5905" });
+      setServiceInfo({ port: 5905, proxy: "BitRouter", endpoint: "http://localhost:5905" });
     } catch {
       setStatus("stopped");
     }
@@ -34,7 +34,7 @@ export default function ClaudeCodePage() {
   const statusColor = status === "running" ? "success" : status === "stopped" ? "destructive" : "warning";
 
   return (
-    <DashboardPageLayout header={{ title: "Claude Code", description: "AI coding agent via 9Router proxy", icon: CuteRobotIcon }}>
+    <DashboardPageLayout header={{ title: "Claude Code", description: "AI coding agent via BitRouter proxy", icon: CuteRobotIcon }}>
       <DashboardCard title="SERVICE STATUS" frost={status === "running" ? "green" : "red"}>
         <div className="space-y-6">
           <div className="flex items-center justify-between">
@@ -46,7 +46,7 @@ export default function ClaudeCodePage() {
               </div>
               <div>
                 <h3 className="text-lg font-display">Claude Code</h3>
-                <p className="text-sm text-muted-foreground">9Router proxy (:5905) → Anthropic API</p>
+                <p className="text-sm text-muted-foreground">BitRouter proxy (:5905) → Anthropic API</p>
               </div>
             </div>
             <Badge variant={status === "running" ? "default" : "secondary"} className={cn(
@@ -84,8 +84,8 @@ export default function ClaudeCodePage() {
       <DashboardCard title="PROXY ENDPOINTS" frost="blue">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
-            { port: 5905, name: "Claude Proxy", desc: "Anthropic-compatible API via 9Router" },
-            { port: 20128, name: "9Router Gateway", desc: "Main LLM request router" },
+            { port: 5905, name: "Claude Proxy", desc: "Anthropic-compatible API via BitRouter" },
+            { port: 4356, name: "BitRouter Gateway", desc: "Main LLM request router" },
           ].map(ep => (
             <div key={ep.port} className="flex items-center justify-between glass rounded-xl p-3">
               <div>

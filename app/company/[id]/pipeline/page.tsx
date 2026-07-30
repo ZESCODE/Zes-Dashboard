@@ -375,7 +375,7 @@ export default function CompanyPipelinePage() {
 
           {/* Inline Review Panel for CEO */}
           {feedbackItem && (
-            <DashboardCard title={`Review Item #${feedbackItem}`} className="mt-2 border-rose-500/30">
+            <DashboardCard title={`Review Item #${feedbackItem}`} frost="blue" className="mt-2">
               <div className="flex gap-2 mb-3">
                 {(["approve", "reject", "comment"] as const).map(d => (
                   <Button

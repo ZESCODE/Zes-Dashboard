@@ -1,5 +1,5 @@
 {
-  "name": "my-v0-project",
+  "name": "zes-os-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -89,5 +89,11 @@
     "onlyBuiltDependencies": [
       "sharp"
     ]
-  }
+  },
+  "description": "ZES OS — Unified Orchestration Dashboard. Next.js 15 + Frost Design System. 31 pages.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zesxdev/zes-os.git"
+  },
+  "homepage": "https://github.com/zesxdev/zes-os"
 }

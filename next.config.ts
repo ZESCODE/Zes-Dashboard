@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_IS_VERCEL: isVercel ? "true" : "false",
     NEXT_PUBLIC_IS_TERMUX: isTermux ? "true" : "false",
   },
+  // Output file tracing root to handle workspace lockfile warning
+  outputFileTracingRoot: process.cwd(),
   // Use webpack instead of Turbopack (Turbopack requires native bindings, not WASM)
   webpack: (config) => {
     return config

@@ -374,6 +374,48 @@ const zoomMeetingSetup: DiagramTemplate = {
 }
 
 // Template 7: Empty Template
+// Template 7: ZES Org Chart
+const zesOrgChart: DiagramTemplate = {
+  id: "zes-org-chart",
+  name: "ZES Org Chart",
+  description: "ZES agent trinity organization structure",
+  nodes: [
+    { id: "ceo", label: "Arfaxad", sublabel: "CEO / Founder", type: "atem", x: 540, y: 20, system: "executive" },
+    { id: "hermes", label: "HERMES", sublabel: "Eldest · Orchestrator", type: "atem", x: 200, y: 160, system: "leadership" },
+    { id: "codex", label: "CODEX", sublabel: "Engineer · 4-Phase QC", type: "pc", x: 540, y: 160, system: "leadership" },
+    { id: "claude", label: "CLAUDE", sublabel: "Youngest · UI/UX · Review", type: "pc", x: 880, y: 160, system: "leadership" },
+    { id: "memory_hub", label: "Memory Hub", sublabel: "Shared SQLite · 145 facts", type: "device", x: 100, y: 320, system: "infrastructure" },
+    { id: "9router", label: "9Router", sublabel: "Gateway :20128", type: "stream", x: 300, y: 320, system: "infrastructure" },
+    { id: "bitrouter", label: "BitRouter", sublabel: "Routing :4356", type: "stream", x: 500, y: 320, system: "infrastructure" },
+    { id: "telegram", label: "Telegram", sublabel: "@zes_hbot", type: "cloud", x: 700, y: 320, system: "infrastructure" },
+    { id: "tor", label: "Tor", sublabel: "Privacy :9050", type: "device", x: 900, y: 320, system: "infrastructure" },
+    { id: "company_board", label: "Board Room", sublabel: "Strategy · Budget", type: "device", x: 200, y: 460, system: "company" },
+    { id: "org_chart", label: "Org Chart", sublabel: "Hierarchy · Reports", type: "device", x: 400, y: 460, system: "company" },
+    { id: "hire_agent", label: "Hire Agent", sublabel: "Recruiting", type: "device", x: 600, y: 460, system: "company" },
+    { id: "budget", label: "Budget", sublabel: "Tracking", type: "device", x: 800, y: 460, system: "company" },
+  ],
+  connections: [
+    { from: "ceo", to: "hermes", label: "Delegates", type: "ethernet" },
+    { from: "ceo", to: "codex", label: "Delegates", type: "ethernet" },
+    { from: "ceo", to: "claude", label: "Delegates", type: "ethernet" },
+    { from: "hermes", to: "memory_hub", label: "Curates", type: "usb" },
+    { from: "codex", to: "9router", label: "Routes", type: "stream" },
+    { from: "claude", to: "bitrouter", label: "Routes", type: "stream" },
+    { from: "hermes", to: "telegram", label: "Notifies", type: "wireless" },
+    { from: "bitrouter", to: "tor", label: "Privacy", type: "wireless" },
+    { from: "ceo", to: "company_board", label: "Oversees", type: "ethernet" },
+    { from: "company_board", to: "org_chart", label: "Manages", type: "sdi" },
+    { from: "company_board", to: "hire_agent", label: "Approves", type: "audio" },
+    { from: "company_board", to: "budget", label: "Reviews", type: "sdi" },
+  ],
+  subgraphs: [
+    { id: "executive", title: "Executive", x: 420, y: 0, width: 300, height: 90 },
+    { id: "leadership", title: "Agent Trinity — Leadership", x: 100, y: 120, width: 950, height: 120 },
+    { id: "infrastructure", title: "Infrastructure & Services", x: 50, y: 280, width: 1050, height: 110 },
+    { id: "company", title: "Company Operations", x: 150, y: 420, width: 750, height: 100 },
+  ],
+}
+
 const emptyTemplate: DiagramTemplate = {
   id: "empty",
   name: "Empty",
@@ -391,6 +433,7 @@ export const diagramTemplates: DiagramTemplate[] = [
   conferenceSetup,
   liveEventSetup,
   zoomMeetingSetup,
+  zesOrgChart,
   emptyTemplate,
 ]
 

@@ -81,6 +81,12 @@ export default function MemoryHubPage() {
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState("trust_desc");
   const [selectedFact, setSelectedFact] = useState<Fact | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [editingMemory, setEditingMemory] = useState<Memory | null>(null);
+  const [newMemoryForm, setNewMemoryForm] = useState(false);
+  const [formContent, setFormContent] = useState("");
+  const [formType, setFormType] = useState("fact");
+  const [formTags, setFormTags] = useState("");
 
   const fetchStats = useCallback(async () => {
     const res = await fetch("/api/memory?path=stats");
@@ -127,6 +133,37 @@ export default function MemoryHubPage() {
     else if (activeTab === "memories") fetchMemories(query);
   };
 
+  const handleInsert = async () => {
+    if (!formContent.trim()) return;
+    await fetch("/api/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "insert", content: formContent, type: formType, tags: formTags, priority: "medium" }),
+    });
+    setFormContent(""); setFormTags(""); setNewMemoryForm(false);
+    fetchStats(); fetchMemories();
+  };
+
+  const handleUpdate = async (id: number, content: string, tags: string) => {
+    await fetch("/api/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "update", id, content, tags }),
+    });
+    setEditingMemory(null);
+    fetchMemories();
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Delete this memory?")) return;
+    await fetch("/api/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", id }),
+    });
+    fetchMemories();
+  };
+
   return (
     <DashboardPageLayout
       header={{
@@ -160,6 +197,22 @@ export default function MemoryHubPage() {
           </Button>
         ))}
         <div className="flex-1" />
+        <button
+            onClick={() => setAutoRefresh(!autoRefresh)}
+            className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] border transition-colors ${
+              autoRefresh ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400" : "border-border/40 text-muted-foreground"
+            }`}
+            title="Auto-refresh every 30s"
+          >
+            <RefreshCw className={`size-3 ${autoRefresh ? "animate-spin" : ""}`} />
+            AUTO
+          </button>
+          <button
+            onClick={() => setNewMemoryForm(!newMemoryForm)}
+            className="flex items-center gap-1 px-2 py-1 rounded text-[10px] border border-border/40 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            + NEW
+          </button>
         <form onSubmit={handleSearch} className="flex gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
@@ -382,8 +435,32 @@ function MemoryCard({ memory }: { memory: Memory }) {
     fact: "bg-emerald-500/20 text-emerald-400",
     feedback: "bg-rose-500/20 text-rose-400",
   };
+  const [editing, setEditing] = useState(false);
+  const [editContent, setEditContent] = useState(memory.content);
+  const [editTags, setEditTags] = useState(memory.tags.join(", "));
+
+  const handleSave = async () => {
+    await fetch("/api/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "update", id: memory.id, content: editContent, tags: editTags }),
+    });
+    setEditing(false);
+    window.location.reload();
+  };
+
+  const handleDelete = async () => {
+    if (!confirm("Delete this memory?")) return;
+    await fetch("/api/memory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", id: memory.id }),
+    });
+    window.location.reload();
+  };
+
   return (
-    <div className="glass rounded-xl p-3 border border-border/40">
+    <div className="glass rounded-xl p-3 border border-border/40 group">
       <div className="flex items-start justify-between gap-2 mb-1">
         <div className="flex items-center gap-1.5 flex-wrap">
           <Badge variant="outline" className={cn("text-[10px] font-mono", typeColors[memory.type] || "")}>
@@ -396,11 +473,30 @@ function MemoryCard({ memory }: { memory: Memory }) {
             <Badge key={t} variant="secondary" className="text-[9px]">#{t}</Badge>
           ))}
         </div>
-        <span className="text-[9px] text-muted-foreground font-mono shrink-0">
-          {memory.source} · {memory.created_at ? new Date(memory.created_at).toLocaleDateString() : ""}
-        </span>
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-accent/20 text-muted-foreground hover:text-foreground" title="Edit">
+            <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button onClick={handleDelete} className="p-1 rounded hover:bg-red-500/20 text-muted-foreground hover:text-red-400" title="Delete">
+            <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+          <span className="text-[9px] text-muted-foreground font-mono shrink-0">
+            {memory.source} · {memory.created_at ? new Date(memory.created_at).toLocaleDateString() : ""}
+          </span>
+        </div>
       </div>
-      <p className="text-sm leading-relaxed">{memory.content}</p>
+      {editing ? (
+        <div className="space-y-2">
+          <textarea value={editContent} onChange={e => setEditContent(e.target.value)} rows={3} className="w-full rounded border border-border/30 bg-white/5 px-2 py-1 text-sm resize-none" />
+          <input value={editTags} onChange={e => setEditTags(e.target.value)} className="w-full rounded border border-border/30 bg-white/5 px-2 py-1 text-xs" placeholder="Tags" />
+          <div className="flex gap-2">
+            <button onClick={handleSave} className="px-2 py-1 rounded text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Save</button>
+            <button onClick={() => setEditing(false)} className="px-2 py-1 rounded text-[10px] border border-border/30 text-muted-foreground">Cancel</button>
+          </div>
+        </div>
+      ) : (
+        <p className="text-sm leading-relaxed">{memory.content}</p>
+      )}
     </div>
   );
 }

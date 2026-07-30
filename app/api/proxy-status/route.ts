@@ -10,7 +10,7 @@ async function fetchViaProxy(url: string): Promise<string | null> {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(TIMEOUT),
       // Node 18+ fetch doesn't support http_proxy natively — we use the
-      // system-level HTTPS_PROXY env var set in 9router's .env instead.
+      // system-level HTTPS_PROXY env var set in bitrouter's .env instead.
       // For this check we connect directly since we're in the same process.
     });
     if (!res.ok) return null;
@@ -46,7 +46,7 @@ export async function GET() {
   ]);
 
   // Count running services (quick check via r9 service)
-  const r9Ok = await checkPort("127.0.0.1", 20128);
+  const r9Ok = await checkPort("127.0.0.1", 4356);
 
   return NextResponse.json({
     tor: {
@@ -61,7 +61,7 @@ export async function GET() {
     },
     gateway: {
       r9: r9Ok,
-      port: 20128,
+      port: 4356,
     },
     model: {
       id: "deepseek-v4",

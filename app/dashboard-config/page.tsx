@@ -36,7 +36,7 @@ const ALL_PAGES: PageEntry[] = [
   { id: "/claude-code", label: "Claude Code", category: "Agents", visible: true },
   { id: "/hermes", label: "Hermes", category: "Agents", visible: true },
   { id: "/hermes-chat", label: "Hermes Chat", category: "Agents", visible: true },
-  { id: "/9router", label: "9Router", category: "Agents", visible: true },
+  { id: "/bitrouter", label: "BitRouter", category: "Agents", visible: true },
   { id: "/teams", label: "Teams", category: "Agents", visible: true },
   { id: "/codex-web", label: "Codex Web", category: "Agents", visible: true },
   { id: "/workflows", label: "Workflows", category: "System", visible: true },

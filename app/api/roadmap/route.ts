@@ -37,7 +37,7 @@ function ensureRoadmap() {
           progress: 58, status: "on_track",
           epics: [
             { id: "g3e1", name: "Unified Theme System", kpi: "Cross-agent design tokens", progress: 90, status: "completed" },
-            { id: "g3e2", name: "Dashboard Port 7070", kpi: "ZES Orchestration Dashboard", progress: 75, status: "on_track" },
+            { id: "g3e2", name: "ZES OS Dashboard", kpi: "Unified dashboard :5051", progress: 75, status: "on_track" },
             { id: "g3e3", name: "Mobile UX", kpi: "Touch-first Termux experience", progress: 20, status: "attention" },
           ],
         },

@@ -121,8 +121,8 @@ export default function NetworkPage() {
           {[
             { port: 5002, service: "Flask API" },
             { port: 5173, service: "Vite Dashboard" },
-            { port: 7070, service: "ZES OS Next" },
-            { port: 20128, service: "9Router" },
+            { port: 5051, service: "ZES OS Dashboard" },
+            { port: 4356, service: "BitRouter" },
             { port: 5900, service: "Codex" },
             { port: 8788, service: "Claude Dashboard" },
             { port: 7173, service: "Terminal" },

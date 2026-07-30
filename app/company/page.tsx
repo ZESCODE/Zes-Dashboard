@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DashboardPageLayout from "@/components/dashboard/layout";
 import DashboardCard from "@/components/dashboard/card";
-import DashboardStat from "@/components/dashboard/stat";
+import { GlassStatCard } from "@/components/dashboard/glass-stat";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ import {
   Target, Shield, Zap,
 } from "lucide-react";
 import BuildingIcon from "@/components/icons/building";
+import WiringDiagram from "@/components/wireflow/wiring-diagram";
 
 /* ────────────── Types ────────────── */
 
@@ -244,43 +245,35 @@ export default function CompanyPage() {
         <>
           {/* Executive Stats Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3">
-            <DashboardStat
+            <GlassStatCard
               label="AGENTS"
               value={"" + (s?.totalAgents ?? "—")}
-              description={(s?.running ?? 0) + " running · " + (s?.active ?? 0) + " active"}
+              change={(s?.running ?? 0) + " running"}
               icon={Users}
-              intent={s && s.running > 0 ? "positive" : "negative"}
-              frost={s && s.running > 0 ? "green" : "blue"}
-              direction={s && s.running === s?.totalAgents ? "up" : "neutral"}
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="BUDGET UTILIZED"
               value={(b?.overview?.overallUtilizationPercent ?? 0) + "%"}
-              description={b?.overview?.totalBudgetCents
+              change={b?.overview?.totalBudgetCents
                 ? formatCents(b.overview.totalSpentCents) + " / " + formatCents(b.overview.totalBudgetCents)
-                : "No budget set"}
+                : "—"}
               icon={DollarSign}
-              intent={(b?.overview?.overallUtilizationPercent ?? 0) >= 80 ? "negative" : "positive"}
-              frost={(b?.overview?.overallUtilizationPercent ?? 0) >= 80 ? "red" : (b?.overview?.overallUtilizationPercent ?? 0) >= 50 ? "orange" : "green"}
-              direction={(b?.overview?.overallUtilizationPercent ?? 0) > 50 ? "down" : "up"}
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="GOALS"
               value={"" + (b?.goals?.length ?? 0)}
-              description={(b?.goals?.filter((g) => g.status === "on_track" || g.status === "completed").length ?? 0) + " on track"}
+              change={(b?.goals?.filter((g) => g.status === "on_track" || g.status === "completed").length ?? 0) + " on track"}
               icon={Target}
-              intent={b && b.goals.length > 0 ? "positive" : "neutral"}
-              frost={b && b.goals.length > 0 ? "green" : "blue"}
-              direction="up"
+              frost="blue"
             />
-            <DashboardStat
+            <GlassStatCard
               label="INCIDENTS"
               value={"" + (b?.activeIncidents?.length ?? 0)}
-              description={(b?.pendingApprovalCount ?? 0) + " pending approval"}
+              change={(b?.pendingApprovalCount ?? 0) + " pending"}
               icon={AlertTriangle}
-              intent={(b?.activeIncidents?.length ?? 0) > 0 ? "negative" : "positive"}
-              frost={(b?.activeIncidents?.length ?? 0) > 0 ? "red" : "green"}
-              direction={(b?.activeIncidents?.length ?? 0) > 0 ? "up" : "down"}
+              frost="blue"
             />
           </div>
 
@@ -591,6 +584,18 @@ export default function CompanyPage() {
               )}
             </DashboardCard>
           </div>
+
+          {/* Interactive Org Diagram */}
+          <details className="group mt-8">
+            <summary className="cursor-pointer text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors flex items-center gap-2 mb-4">
+              <span className="inline-block size-1.5 rounded-full bg-primary/60" />
+              Interactive Organization Diagram
+              <span className="text-[10px] text-muted-foreground/50 font-mono">click to expand</span>
+            </summary>
+            <div className="rounded-xl border border-border overflow-hidden" style={{ minHeight: 500 }}>
+              <WiringDiagram />
+            </div>
+          </details>
         </>
       )}
     </DashboardPageLayout>
