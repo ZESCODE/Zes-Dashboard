@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter, Roboto_Mono } from "next/font/google";
 
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
