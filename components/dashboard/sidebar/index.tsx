@@ -31,6 +31,7 @@ import TerminalIcon from "@/components/icons/terminal";
 import MonkeyIcon from "@/components/icons/monkey";
 import DotsVerticalIcon from "@/components/icons/dots-vertical";
 import BuildingIcon from "@/components/icons/building";
+import EmailIcon from "@/components/icons/email";
 import PlusIcon from "@/components/icons/plus";
 import { Bullet } from "@/components/ui/bullet";
 import LockIcon from "@/components/icons/lock";
@@ -70,7 +71,7 @@ const data = {
         { title: "Overview", url: "/system", icon: BracketsIcon, isActive: false } as NavItem,
         { title: "Laboratory", url: "/laboratory", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Showcase", url: "/showcase", icon: Sparkles, isActive: false } as NavItem,
-        { title: "Tech Stack", url: "/tech-stack" } as NavItem,
+        { title: "Tech Stack", url: "/tech-stack", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Dashboard Config", url: "/dashboard-config", icon: GearIcon, isActive: false } as NavItem,
       ],
     },
@@ -106,7 +107,7 @@ const data = {
         { title: "Scheduler", url: "/scheduler", icon: CalendarIcon, isActive: false } as NavItem,
         { title: "Templates", url: "/templates", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Terminal", url: "/terminal", icon: TerminalIcon, isActive: false } as NavItem,
-        { title: "Communication", url: "/communication" } as NavItem,
+        { title: "Communication", url: "/communication", icon: EmailIcon, isActive: false } as NavItem,
         { title: "Wireflow", url: "/wireflow", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Memory Hub", url: "/memory", icon: CuteRobotIcon, isActive: false } as NavItem,
         { title: "Topology", url: "/topology", icon: LayoutLeftIcon, isActive: false } as NavItem,
@@ -124,7 +125,7 @@ const data = {
         { title: "Hermes", url: "/hermes", icon: GearIcon, isActive: false } as NavItem,
         { title: "Hermes Chat", url: "/hermes-chat", icon: LayoutLeftIcon, isActive: false } as NavItem,
         { title: "BitRouter", url: "/bitrouter", icon: AtomIcon, isActive: false } as NavItem,
-        { title: "9Router", url: "/9router" } as NavItem,
+        { title: "9Router", url: "/9router", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Teams", url: "/teams", icon: BracketsIcon, isActive: false } as NavItem,
         { title: "Codex Web", url: "/codex-web", icon: GearIcon, isActive: false } as NavItem,
       ],
