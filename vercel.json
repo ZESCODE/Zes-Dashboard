@@ -24,5 +24,8 @@
       ]
     }
   ],
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "typescript": {
+    "ignoreBuildErrors": false
+  }
 }
