@@ -108,6 +108,7 @@ const data = {
         { title: "Templates", url: "/templates", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Terminal", url: "/terminal", icon: TerminalIcon, isActive: false } as NavItem,
         { title: "Communication", url: "/communication", icon: EmailIcon, isActive: false } as NavItem,
+        { title: "App Builder", url: "http://127.0.0.1:8088", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Wireflow", url: "/wireflow", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Memory Hub", url: "/memory", icon: CuteRobotIcon, isActive: false } as NavItem,
         { title: "Topology", url: "/topology", icon: LayoutLeftIcon, isActive: false } as NavItem,
