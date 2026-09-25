@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter, Roboto_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 export const dynamic = 'force-dynamic';
 
@@ -92,6 +93,7 @@ export default function RootLayout({
         </V0Provider>
         </ThemeProvider>
         <MobileBottomNav />
+        <Analytics />
       </body>
     </html>
   );
