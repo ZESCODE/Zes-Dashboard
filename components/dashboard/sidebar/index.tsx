@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -16,11 +15,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import LayoutLeftIcon from "@/components/icons/layout";
 import AtomIcon from "@/components/icons/atom";
@@ -28,8 +22,6 @@ import BracketsIcon from "@/components/icons/brackets";
 import CuteRobotIcon from "@/components/icons/cute-robot";
 import GearIcon from "@/components/icons/gear";
 import TerminalIcon from "@/components/icons/terminal";
-import MonkeyIcon from "@/components/icons/monkey";
-import DotsVerticalIcon from "@/components/icons/dots-vertical";
 import BuildingIcon from "@/components/icons/building";
 import EmailIcon from "@/components/icons/email";
 import PlusIcon from "@/components/icons/plus";
@@ -41,9 +33,7 @@ import CloudIcon from "@/components/icons/cloud";
 import ActivityIcon from "@/components/icons/activity";
 import CalendarIcon from "@/components/icons/calendar";
 import BookTemplateIcon from "@/components/icons/template";
-import Image from "next/image";
 import { useIsV0 } from "@/lib/v0-context";
-import { ThemeToggle } from "@/components/dashboard/theme-toggle";
 import { Sparkles, Target, DollarSign } from "lucide-react";
 
 const STORAGE_KEY = "zes-dashboard-hidden-pages";
@@ -69,6 +59,7 @@ const data = {
       title: "Tools",
       items: [
         { title: "Overview", url: "/system", icon: BracketsIcon, isActive: false } as NavItem,
+        { title: "News", url: "/news", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Laboratory", url: "/laboratory", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Showcase", url: "/showcase", icon: Sparkles, isActive: false } as NavItem,
         { title: "Tech Stack", url: "/tech-stack", icon: AtomIcon, isActive: false } as NavItem,
@@ -395,65 +386,6 @@ export function DashboardSidebar({
             </SidebarGroup>
           ))}
         </SidebarContent>
-
-        <SidebarFooter className="p-0">
-          <SidebarGroup>
-            <SidebarGroupLabel>
-              <Bullet className="mr-2" />
-              User
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <Popover>
-                    <PopoverTrigger className="flex gap-0.5 w-full group cursor-pointer">
-                      <div className="shrink-0 flex size-14 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground overflow-clip">
-                        <Image
-                          src={data.user.avatar}
-                          alt={data.user.name}
-                          width={120}
-                          height={120}
-                        />
-                      </div>
-                      <div className="group/item pl-3 pr-1.5 pt-2 pb-1.5 flex-1 flex bg-sidebar-accent hover:bg-sidebar-accent-active/75 items-center rounded group-data-[state=open]:bg-sidebar-accent-active group-data-[state=open]:hover:bg-sidebar-accent-active group-data-[state=open]:text-sidebar-accent-foreground">
-                        <div className="grid flex-1 text-left text-sm leading-tight">
-                          <span className="truncate text-xl font-display">
-                            {data.user.name}
-                          </span>
-                          <span className="truncate text-xs uppercase opacity-50 group-hover/item:opacity-100">
-                            {data.user.email}
-                          </span>
-                        </div>
-                        <DotsVerticalIcon className="ml-auto size-4" />
-                      </div>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      className="w-56 p-0"
-                      side="bottom"
-                      align="end"
-                      sideOffset={4}
-                    >
-                      <div className="flex flex-col">
-                        <button className="flex items-center px-4 py-2 text-sm hover:bg-accent">
-                          <MonkeyIcon className="mr-2 h-4 w-4" />
-                          Account
-                        </button>
-                        <button className="flex items-center px-4 py-2 text-sm hover:bg-accent">
-                          <GearIcon className="mr-2 h-4 w-4" />
-                          Settings
-                        </button>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-                {/* Theme Toggle */}
-        <div className="px-4 py-2 border-t border-border/20">
-          <ThemeToggle />
-        </div>
-        </SidebarFooter>
 
         <SidebarRail />
       </Sidebar>
