@@ -8,7 +8,15 @@ if (isTermux) {
   process.env.NEXT_SWC_USE_WASM = "1"
 }
 
+const STORK_WIRE_URL = "https://www.stork.ai/wire/wrq1old7v90rznud7"
+
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      { source: "/news", destination: STORK_WIRE_URL },
+      { source: "/news/:path*", destination: `${STORK_WIRE_URL}/:path*` },
+    ]
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
