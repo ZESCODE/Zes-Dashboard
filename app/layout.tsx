@@ -39,10 +39,10 @@ const isV0 = process.env["VERCEL_URL"]?.includes("vusercontent.net") ?? false;
 export const metadata: Metadata = {
   title: {
     template: "%s – ZES",
-    default: "ZES Orchestration Dashboard",
+    default: "ZES Dashboard",
   },
   description:
-    "ZES Orchestration Dashboard — real-time monitoring, agent orchestration, and system control.",
+    "ZES Dashboard — real-time monitoring, agent orchestration, and system control.",
     generator: 'v0.app'
 };
 
@@ -66,7 +66,7 @@ export default function RootLayout({
 
             {/* Desktop Layout */}
             <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-gap lg:px-sides">
-              <div className="hidden lg:block col-span-2 sticky top-0 h-screen">
+              <div className="col-span-1 lg:col-span-2 lg:sticky lg:top-0 lg:h-screen">
                 <DashboardSidebar />
               </div>
               <div className="col-span-1 lg:col-span-7 pb-14 lg:pb-0">

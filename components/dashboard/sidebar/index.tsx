@@ -58,7 +58,7 @@ const data = {
     {
       title: "Tools",
       items: [
-        { title: "Overview", url: "/system", icon: BracketsIcon, isActive: false } as NavItem,
+        { title: "Dashboard", url: "/", icon: BracketsIcon, isActive: false } as NavItem,
         { title: "News", url: "/news", icon: BookTemplateIcon, isActive: false } as NavItem,
         { title: "Laboratory", url: "/laboratory", icon: AtomIcon, isActive: false } as NavItem,
         { title: "Showcase", url: "/showcase", icon: Sparkles, isActive: false } as NavItem,
@@ -208,7 +208,7 @@ function NewCompanyDialog({ onClose, onCreated }: { onClose: () => void; onCreat
             <button
               onClick={handleCreate}
               disabled={creating || !name.trim()}
-              className="h-8 px-4 rounded-md text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors"
+              className="min-h-11 px-4 rounded-md text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors"
             >
               {creating ? "Creating..." : "Create Company"}
             </button>
@@ -349,8 +349,7 @@ export function DashboardSidebar({
                       key={item.title}
                       className={cn(
                         item.locked && "pointer-events-none opacity-50",
-                        isV0 && "pointer-events-none"
-                      )}
+                                      )}
                       data-disabled={item.locked}
                     >
                       <SidebarMenuButton
